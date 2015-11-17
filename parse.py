@@ -32,7 +32,7 @@ def remSym(x):
 	return re.sub("[^a-z]", "", x)
 
 def removeFilter(removelist):
-	def wordFilter(word):
+	def wordFilter(x):
 		return x not in removelist
 	return wordFilter
 
@@ -40,11 +40,15 @@ def removeFilter(removelist):
 
 def makeWordList():
 	wordlist = []
-	for file in glob.glob(txt_path):
+	i = 0
+	for file in glob.glob(child_path):
 		new_wordlist = parse(file)
 		wordlist += new_wordlist
 		wordlist = list(set(wordlist))
-	return wordset
+		if i > 5:
+			break
+		i += 1
+	return wordlist
 
 # Returns a list of words to remove.
 

@@ -20,17 +20,20 @@ science_path = os.path.join(base_path, "Training", "Science(3)", "*.txt")
 
 def parse(path):
 	file = open(path)
-	print(path)
 	text = file.read()
 	words = text.lower().split()
 	words = list(map(remSym, words))
 	words = list(filter(None, words))
+	words = list(filter(remWords, words))
 	return words
 
 # Takes input x, and removes all characters not a lower case alphabet.
 
 def remSym(x):
 	return re.sub("[^a-z]", "", x)
+
+def remWords(x):
+	return x not in removewords
 
 wordlist = []
 i = 0
@@ -47,3 +50,5 @@ wordset = set(wordlist)
 remove = open('remove.txt')
 removewords = remove.read()
 removewords = removewords.split(",")
+
+

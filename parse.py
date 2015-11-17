@@ -31,6 +31,8 @@ def parse(path):
 def remSym(x):
 	return re.sub("[^a-z]", "", x)
 
+# Checks if a word is not in the list of words to remove. 
+
 def removeFilter(removelist):
 	def wordFilter(x):
 		return x not in removelist
@@ -40,15 +42,21 @@ def removeFilter(removelist):
 
 def makeWordList():
 	wordlist = []
+	mainwordlist = []
 	i = 0
-	for file in glob.glob(child_path):
+	run = 0
+	for file in glob.glob(txt_path):
 		new_wordlist = parse(file)
 		wordlist += new_wordlist
 		wordlist = list(set(wordlist))
-		if i > 5:
-			break
+		if i > 100:
+			mainwordlist += wordlist
+			wordlist = []
+			i = 0
+			run += 1
 		i += 1
-	return wordlist
+		print(str(i) + " " + str(run))
+	return list(set(mainwordlist))
 
 # Returns a list of words to remove.
 

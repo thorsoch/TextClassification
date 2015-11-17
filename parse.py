@@ -1,5 +1,6 @@
 import os
 import glob
+import re
 
 # Prepare the path for all .txt files. 
 
@@ -19,9 +20,26 @@ science_path = os.path.join(base_path, "Training", "Science(3)", "*.txt")
 
 def parse(path):
 	file = open(path)
+	print(path)
 	text = file.read()
 	words = text.lower().split()
+	words = list(map(remSym, words))
+	words = list(filter(None, words))
 	return words
+
+# Takes input x, and removes all characters not a lower case alphabet.
+
+def remSym(x):
+	return re.sub("[^a-z]", "", x)
+
+wordlist = []
+i = 0
+for file in glob.glob(txt_path):
+	new_wordlist = parse(file)
+	wordlist += new_wordlist
+	i += 1
+print(i)
+wordset = set(wordlist)
 
 # Import remove.txt and prepare it for 
 # "common word" removal.
@@ -29,20 +47,3 @@ def parse(path):
 remove = open('remove.txt')
 removewords = remove.read()
 removewords = removewords.split(",")
-
-
-i = 0
-for file in glob.glob(txt_path):
-	i += 1
-print(i)
-
-i = 0
-for file in glob.glob(child_path):
-	i += 1
-for file in glob.glob(history_path):
-	i += 1
-for file in glob.glob(religion_path):
-	i += 1
-for file in glob.glob(science_path):
-	i += 1
-print(i)

@@ -35,20 +35,25 @@ def remSym(x):
 def remWords(x):
 	return x not in removewords
 
-wordlist = []
-i = 0
-for file in glob.glob(txt_path):
-	new_wordlist = parse(file)
-	wordlist += new_wordlist
-	i += 1
-print(i)
-wordset = set(wordlist)
+# Creates word list by calling functions above.
 
-# Import remove.txt and prepare it for 
-# "common word" removal.
+def makeWordList():
+	wordlist = []
+	for file in glob.glob(txt_path):
+		new_wordlist = parse(file)
+		wordlist += new_wordlist
+	wordset = set(wordlist)
+	return list(wordset)
 
-remove = open('remove.txt')
-removewords = remove.read()
-removewords = removewords.split(",")
+# Returns a list of words to remove.
 
+def removeWords():
+	remove = open('remove.txt')
+	removewords = remove.read()
+	removewords = removewords.split(",")
+	return removewords
+
+if __name__ == "__main__":
+	words = makeWordList()
+	remove = removeWords()
 

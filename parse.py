@@ -24,7 +24,6 @@ def parse(path):
 	words = text.lower().split()
 	words = list(map(remSym, words))
 	words = list(filter(None, words))
-	words = list(filter(remWords, words))
 	return words
 
 # Takes input x, and removes all characters not a lower case alphabet.
@@ -32,8 +31,10 @@ def parse(path):
 def remSym(x):
 	return re.sub("[^a-z]", "", x)
 
-def remWords(x):
-	return x not in removewords
+def removeFilter(removelist):
+	def wordFilter(word):
+		return x not in removelist
+	return wordFilter
 
 # Creates word list by calling functions above.
 
@@ -42,8 +43,8 @@ def makeWordList():
 	for file in glob.glob(txt_path):
 		new_wordlist = parse(file)
 		wordlist += new_wordlist
-	wordset = set(wordlist)
-	return list(wordset)
+		wordlist = list(set(wordlist))
+	return wordset
 
 # Returns a list of words to remove.
 
@@ -56,4 +57,6 @@ def removeWords():
 if __name__ == "__main__":
 	words = makeWordList()
 	remove = removeWords()
+	removefunc = removeFilter(remove)
+	cleanwords = list(filter(removefunc, words))
 

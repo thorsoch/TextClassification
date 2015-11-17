@@ -23,6 +23,14 @@ def parse(path):
 	words = text.lower().split()
 	return words
 
+# Import remove.txt and prepare it for 
+# "common word" removal.
+
+remove = open('remove.txt')
+removewords = remove.read()
+removewords = removewords.split(",")
+
+
 i = 0
 for file in glob.glob(txt_path):
 	i += 1

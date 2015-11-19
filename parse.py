@@ -135,9 +135,21 @@ if __name__ == "__main__":
 	#finalmatrix = makeMatrix(cleanwords)
 	#print("matrix done")
 
-	matrix = makeCount(cleanwords, child_path, 0)
+	matrix = makeCount(cleanwords, history_path, 1)
 
-	with open("child.csv", "wb") as f:
+	with open("history.csv", "wb") as f:
+		writer = csv.writer(f)
+		writer.writerows(matrix)
+
+	matrix = makeCount(cleanwords, religion_path, 2)
+
+	with open("religion.csv", "wb") as f:
+		writer = csv.writer(f)
+		writer.writerows(matrix)
+
+	matrix = makeCount(cleanwords, science_path, 3)
+
+	with open("science.csv", "wb") as f:
 		writer = csv.writer(f)
 		writer.writerows(matrix)
 

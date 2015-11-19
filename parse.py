@@ -3,6 +3,8 @@ import os
 import glob
 import re
 import csv
+import pickle
+from bisect import bisect_left
 
 # Prepare the path for all .txt files. 
 
@@ -54,8 +56,7 @@ def makeWordList():
 	wordlist = []
 	mainwordlist = []
 	i = 0
-	run = 0
-	for file in glob.glob(sample_path):
+	for file in glob.glob(txt_path):
 		new_wordlist = parse(file)
 		wordlist += new_wordlist
 		wordlist = list(set(wordlist))
@@ -63,11 +64,14 @@ def makeWordList():
 			mainwordlist += wordlist
 			wordlist = []
 			i = 0
-			run += 1
 		i += 1
-		print(str(i) + " " + str(run))
 	mainwordlist += wordlist
 	return list(set(mainwordlist))
+
+def binary_search(a, x, lo=0, hi=None):   # can't use a to specify default for hi
+    hi = hi if hi is not None else len(a) # hi defaults to len(a)   
+    pos = bisect_left(a,x,lo,hi)          # find insertion position
+    return (pos if pos != hi and a[pos] == x else -1)
 
 # Returns a list of words to remove.
 
@@ -80,28 +84,65 @@ def removeWords():
 # Takes in all the words and makes a matrix of the frequency of words in each document.
 
 def makeMatrix(all_words):
-	matrix = [[all_words]]
+	all_words.sort()
+	matrix = [all_words + ["CLASS"]]
 	rowLength = len(all_words)
-	for file in glob.glob(sample_path):
+	i = 0
+	for file in glob.glob(txt_path):
 		row = [0] * (rowLength + 1)
 		new_wordlist = parse(file)
 		d = Counter(new_wordlist)
 		for key in d:
-			if key in all_words:
-				row[all_words.index(key)] = d[key]
-
-		row[-1] = 4 # This number assigns class
+			pos = binary_search(all_words, key, 0, rowLength)
+			if pos > -1:
+				row[pos] = d[key]
+		row[-1] = 0 # This number assigns class
 		matrix += [row]
+		i += 1
+		print(i)
 	return matrix
 
+# Takes in all the words, and makes a count of every word in all the files of designated path
+
+def makeCount(all_words, path, classnum):
+	all_words.sort()
+	matrix = [all_words + ["CLASS"]]
+	rowLength = len(all_words)
+	i = 0
+	total = [0] * (rowLength + 1)
+	total[-1] = classnum
+	for file in glob.glob(path):
+		row = [0] * (rowLength + 1)
+		new_wordlist = parse(file)
+		d = Counter(new_wordlist)
+		for key in d:
+			pos = binary_search(all_words, key, 0, rowLength)
+			if pos > -1:
+				row[pos] = d[key]
+		total = [x + y for x, y in zip(total, row)]
+		i += 1
+		print(i)
+	return [matrix, total]
+
 if __name__ == "__main__":
-	words = makeWordList()
-	remove = removeWords()
-	removefunc = removeFilter(remove)
-	cleanwords = list(filter(removefunc, words))
-	finalmatrix = makeMatrix(cleanwords)
-	with open("output.csv", "wb") as f:
+	#words = makeWordList()
+	#remove = removeWords()
+	#removefunc = removeFilter(remove)
+	with open("allwords", 'rb') as f:
+		cleanwords = pickle.load(f)
+	print("cleanwords done")
+
+	#finalmatrix = makeMatrix(cleanwords)
+	#print("matrix done")
+
+	matrix = makeCount(cleanwords, child_path, 0)
+
+	with open("child.csv", "wb") as f:
 		writer = csv.writer(f)
-		writer.writerows(finalmatrix)
+		writer.writerows(matrix)
 
-
+#itertools
+#with open("allwords", 'wb') as f:
+    #pickle.dump(my_list, f)
+#with open("allwords", 'rb') as f:
+#    my_list = pickle.load(f)

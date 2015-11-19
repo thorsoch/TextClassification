@@ -41,12 +41,10 @@ def removeFilter(removelist):
 def makeWordList():
 	wordlist = []
 	i = 0
-	for file in glob.glob(child_path):
+	for file in glob.glob(txt_path):
 		new_wordlist = parse(file)
 		wordlist += new_wordlist
 		wordlist = list(set(wordlist))
-		if i > 5:
-			break
 		i += 1
 	return wordlist
 

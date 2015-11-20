@@ -41,6 +41,28 @@ index = [i for (i, j) in zip(indall, summ) if j > 10]
 
 finalMatrix = [[cleanwords[i] for i in index], [summ[i] for i in index]]
 
-with open("totals.csv", "wb") as f:
-	writer = csv.writer(f)
-	writer.writerows(finalMatrix)
+# with open("totals.csv", "wb") as f:
+# 	writer = csv.writer(f)
+# 	writer.writerows(finalMatrix)
+
+childCounts = [int(a) for a in dataChild[1]]
+historyCounts = [int(a) for a in dataHistory[1]]
+religionCounts = [int(a) for a in dataReligion[1]]
+scienceCounts = [int(a) for a in dataScience[1]]
+
+def makeCutCsv(counts, name, summ):
+	wordslen = len(cleanwords) + 1
+	indall = range(0, wordslen)
+	index = [i for (i, j) in zip(indall, summ) if j > 10]
+	finalMatrix = [[cleanwords[i] for i in index], [counts[i] for i in index]]
+
+	with open(name, "wb") as f:
+		writer = csv.writer(f)
+		writer.writerows(finalMatrix)
+
+makeCutCsv(childCounts, "childCut.csv", summ)
+makeCutCsv(historyCounts, "historyCut.csv", summ)
+makeCutCsv(religionCounts, "religionCut.csv", summ)
+makeCutCsv(scienceCounts, "scienceCut.csv", summ)
+
+

@@ -125,15 +125,24 @@ def makeCount(all_words, path, classnum):
 	return [matrix, total]
 
 if __name__ == "__main__":
-	#words = makeWordList()
-	#remove = removeWords()
-	#removefunc = removeFilter(remove)
-	with open("allwords", 'rb') as f:
-		cleanwords = pickle.load(f)
+	words = makeWordList()
+	remove = removeWords()
+	removefunc = removeFilter(remove)
+	cleanwords = list(filter(removefunc, words))
+
+	with open("allwords", 'wb') as f:
+    	pickle.dump(cleanwords, f)
+	#with open("allwords", 'rb') as f:
+		#cleanwords = pickle.load(f)
 	print("cleanwords done")
 
 	#finalmatrix = makeMatrix(cleanwords)
 	#print("matrix done")
+	matrix = makeCount(cleanwords, child_path, 0)
+
+	with open("child.csv", "wb") as f:
+		writer = csv.writer(f)
+		writer.writerows(matrix)
 
 	matrix = makeCount(cleanwords, history_path, 1)
 
@@ -153,7 +162,6 @@ if __name__ == "__main__":
 		writer = csv.writer(f)
 		writer.writerows(matrix)
 
-#itertools
 #with open("allwords", 'wb') as f:
     #pickle.dump(my_list, f)
 #with open("allwords", 'rb') as f:

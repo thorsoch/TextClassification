@@ -15,10 +15,11 @@ margincount = function(cutoff) {
 # Choose the left hand cutoff 
 # margins then call the function above.
 
-margins = 20:5000
+margins = 10:5000
 margincounts = sapply(margins, margincount)
 plot(margins, margincounts)
 abline(v = 500)
+abline(v = 10)
 
 
 # Extract all the words that pass

@@ -126,7 +126,7 @@ def makeCount(all_words, path, classnum):
 				row[pos] = d[key]
 		total = [x + y for x, y in zip(total, row)]
 		i += 1
-		print(path[-20:-1] + "on iteration" + str(i))
+		print(path[-20:] + "on iteration " + str(i))
 	return [matrix, total]
 
 if __name__ == "__main__":

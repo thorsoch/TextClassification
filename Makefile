@@ -5,3 +5,4 @@ initialcounts:
 trimmedcounts:
 	python importcsv.py
 wordmatrix:
+	python wordmatrix.py

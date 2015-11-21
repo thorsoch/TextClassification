@@ -1,4 +1,6 @@
-.PHONY: parse
+.PHONY: initialcounts trimmedcounts
 
-parse:
+initialcounts:
 	python parse.py
+trimmedcounts:
+	python importcsv.py

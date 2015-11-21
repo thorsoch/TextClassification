@@ -69,9 +69,9 @@ def makeWordList():
 	return list(set(mainwordlist))
 
 def binary_search(a, x, lo=0, hi=None):   # can't use a to specify default for hi
-    hi = hi if hi is not None else len(a) # hi defaults to len(a)   
-    pos = bisect_left(a,x,lo,hi)          # find insertion position
-    return (pos if pos != hi and a[pos] == x else -1)
+	hi = hi if hi is not None else len(a) # hi defaults to len(a)   
+	pos = bisect_left(a,x,lo,hi)          # find insertion position
+	return (pos if pos != hi and a[pos] == x else -1)
 
 # Returns a list of words to remove.
 
@@ -121,48 +121,75 @@ def makeCount(all_words, path, classnum):
 				row[pos] = d[key]
 		total = [x + y for x, y in zip(total, row)]
 		i += 1
-		print(i)
+		print(path[-20:-1] + "on iteration" + str(i))
 	return [matrix, total]
 
 if __name__ == "__main__":
+
+	print("Making Words")
+
 	words = makeWordList()
 	remove = removeWords()
 	removefunc = removeFilter(remove)
+
+	print("Removing nonsense words")
+
 	cleanwords = list(filter(removefunc, words))
 
+	print("Finished making cleanwords, writing out now")
+
 	with open("allwords", 'wb') as f:
-    	pickle.dump(cleanwords, f)
+		pickle.dump(cleanwords, f)
 	#with open("allwords", 'rb') as f:
 		#cleanwords = pickle.load(f)
-	print("cleanwords done")
+
+	print("cleanwords writing done. starting child")
 
 	#finalmatrix = makeMatrix(cleanwords)
 	#print("matrix done")
 	matrix = makeCount(cleanwords, child_path, 0)
 
+	print("writing out child")
+
 	with open("child.csv", "wb") as f:
 		writer = csv.writer(f)
 		writer.writerows(matrix)
 
+	print("child writing done. starting history")
+
 	matrix = makeCount(cleanwords, history_path, 1)
+
+	print("writing out history")
 
 	with open("history.csv", "wb") as f:
 		writer = csv.writer(f)
 		writer.writerows(matrix)
 
+	print("history writing done. starting religion")
+
 	matrix = makeCount(cleanwords, religion_path, 2)
+
+	print("writing out religion")
 
 	with open("religion.csv", "wb") as f:
 		writer = csv.writer(f)
 		writer.writerows(matrix)
 
+	print("religion writing done. starting science")
+
 	matrix = makeCount(cleanwords, science_path, 3)
+
+	print("writing out science")
 
 	with open("science.csv", "wb") as f:
 		writer = csv.writer(f)
 		writer.writerows(matrix)
 
+	print("science writing done.")
+
+	print("Done writing out: cleanword & 4 word counts.")
+
 #with open("allwords", 'wb') as f:
-    #pickle.dump(my_list, f)
+	#pickle.dump(my_list, f)
 #with open("allwords", 'rb') as f:
 #    my_list = pickle.load(f)

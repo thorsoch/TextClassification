@@ -19,6 +19,8 @@ religion_path = os.path.join(base_path, "Training", "Religion(2)", "*.txt")
 science_path = os.path.join(base_path, "Training", "Science(3)", "*.txt")
 sample_path = os.path.join(base_path, "Training", "Sample(4)", "*.txt")
 
+paths = [child_path, history_path, religion_path, science_path]
+
 # Function that opens the file at PATH, 
 # parses out words, and returns them as
 # lower case and splitted.
@@ -88,18 +90,21 @@ def makeMatrix(all_words):
 	matrix = [all_words + ["CLASS"]]
 	rowLength = len(all_words)
 	i = 0
-	for file in glob.glob(txt_path):
-		row = [0] * (rowLength + 1)
-		new_wordlist = parse(file)
-		d = Counter(new_wordlist)
-		for key in d:
-			pos = binary_search(all_words, key, 0, rowLength)
-			if pos > -1:
-				row[pos] = d[key]
-		row[-1] = 0 # This number assigns class
-		matrix += [row]
-		i += 1
-		print(i)
+	for path in paths:
+		j = 0
+		for file in glob.glob(path):
+			row = [0] * (rowLength + 1)
+			new_wordlist = parse(file)
+			d = Counter(new_wordlist)
+			for key in d:
+				pos = binary_search(all_words, key, 0, rowLength)
+				if pos > -1:
+					row[pos] = d[key]
+			row[-1] = j # This number assigns class
+			matrix += [row]
+			i += 1
+			print(i)
+		j += 1
 	return matrix
 
 # Takes in all the words, and makes a count of every word in all the files of designated path

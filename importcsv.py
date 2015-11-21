@@ -42,10 +42,7 @@ with open("allwords", 'rb') as f:
 print("setting up logistics")
 cleanwords.sort()
 
-freqBar = 10
-wordslen = len(cleanwords) + 1
-indall = range(0, wordslen)
-index = [i for (i, j) in zip(indall, summ) if j > freqBar] # Selects all the indices of frequency > freqBar
+freqBar = 360
 
 print("Making ints for child")
 childCounts = [int(a) for a in dataChild[1]]
@@ -59,7 +56,7 @@ scienceCounts = [int(a) for a in dataScience[1]]
 def makeCutCsv(counts, name, summ):
 	wordslen = len(cleanwords) + 1
 	indall = range(0, wordslen)
-	index = [i for (i, j) in zip(indall, summ) if j > 10]
+	index = [i for (i, j) in zip(indall, summ) if j > freqBar]
 	finalMatrix = [[cleanwords[i] for i in index], [counts[i] for i in index]]
 
 	with open(name, "wb") as f:

@@ -90,8 +90,8 @@ def makeMatrix(all_words):
 	matrix = [all_words + ["CLASS"]]
 	rowLength = len(all_words)
 	i = 0
+	j = 0
 	for path in paths:
-		j = 0
 		for file in glob.glob(path):
 			row = [0] * (rowLength + 1)
 			new_wordlist = parse(file)

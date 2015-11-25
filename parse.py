@@ -87,13 +87,12 @@ def removeWords():
 
 def makeMatrix(all_words):
 	all_words.sort()
-	matrix = [all_words + ["CLASS"]]
+	matrix = [all_words + ["FILE"] + ["CLASS"]]
 	rowLength = len(all_words)
-	i = 0
 	for path in paths:
 		j = 0
 		for file in glob.glob(path):
-			row = [0] * (rowLength + 1)
+			row = [0] * (rowLength + 2)
 			new_wordlist = parse(file)
 			d = Counter(new_wordlist)
 			for key in d:
@@ -101,9 +100,8 @@ def makeMatrix(all_words):
 				if pos > -1:
 					row[pos] = d[key]
 			row[-1] = j # This number assigns class
+			row[-2] = file
 			matrix += [row]
-			i += 1
-			print(i)
 		j += 1
 	return matrix
 

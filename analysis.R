@@ -21,10 +21,10 @@ plot(margins, margincounts)
 abline(v = 500)
 abline(v = 10)
 abline(h = 10000)
-
+abline(v = 470)
 # Find the alpha for 10000 words.
 
-cutoff_locs = head(which(margincounts <= 10000))
+cutoff_locs = head(which(margincounts <= 3000))
 alphacutoffs = margins[cutoff_locs]
 margincounts[cutoff_locs]
 
@@ -32,20 +32,17 @@ margincounts[cutoff_locs]
 # Extract all the words that pass
 # our conditions above. 
 
-indicies = which(counts > 500)
+indicies = which(counts > 429)
 selectedwords = words[indicies]
 
 # Load up word matrix.
 
-wordmatrix = fread("matrix.csv")
+wordmatrix = fread("matrix.csv", header = TRUE)
 wordmatrix = as.data.frame(wordmatrix)
 
-# Fix up the naming of the columns.
+# Double check that CLASS column exists.
 
-names(wordmatrix) = as.character(wordmatrix[1, ])
-wordmatrix = wordmatrix[-1, ]
-wordmatrix[1:10, 1:10]
-head(wordmatrix$aa)
+sum(wordmatrix$CLASS)
 
 # Double check the sum of columns equals counts variable.
 

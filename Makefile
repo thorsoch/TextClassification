@@ -1,4 +1,4 @@
-.PHONY: initialcounts trimmedcounts wordmatrix propmatrix
+.PHONY: initialcounts trimmedcounts wordmatrix powerparse
 
 initialcounts:
 	python parse.py
@@ -6,5 +6,5 @@ trimmedcounts:
 	python importcsv.py
 wordmatrix:
 	python wordmatrix.py
-propmatrix:
-	python propmatrix.py
+powerparse:
+	ipython powerparse.py

@@ -177,21 +177,21 @@ def makeCount(all_words, path, classnum):
 
 if __name__ == "__main__":
 
-	# print("Making Words")
+	print("Making Words")
 
-	# words = makeWordList()
+	words = makeWordList()
 
-	# print("Finished making words, writing out now")
+	print("Finished making words, writing out now")
 
-	# with open("allwordsBi", 'wb') as f:
-	# 	pickle.dump(words, f)
+	with open("allwordsBi", 'wb') as f:
+		pickle.dump(words, f)
 
 ############################################
 
-	print("Opening allwordBi")
+	# print("Opening allwordBi")
 
-	with open("allwordsBi", 'rb') as f:
-		words = pickle.load(f)
+	# with open("allwordsBi", 'rb') as f:
+	# 	words = pickle.load(f)
 
 ############################################
 

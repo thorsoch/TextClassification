@@ -45,10 +45,17 @@ wordmatrix = as.data.frame(wordmatrix)
 
 table(wordmatrix$CLASS)
 
+# Double check that FILE column exists.
+
+head(wordmatrix$FILE)
+tail(wordmatrix$FILE)
+
 # Double check the sum of columns equals counts variable.
 
 testcounts = apply(wordmatrix[, 1:3], 2, function (x) sum(as.numeric(x)))
 testcounts
+
+counts[1:3]
 
 ####################################################
 #                                                  #

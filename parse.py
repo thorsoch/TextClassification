@@ -13,11 +13,10 @@ txt_path = os.path.join(base_path, "Training", "*", "*.txt")
 
 # Create category paths seperately, in case we need them. 
 
-child_path = os.path.join(base_path, "Training", "Child(0)", "*.txt")
-history_path = os.path.join(base_path, "Training", "History(1)", "*.txt")
-religion_path = os.path.join(base_path, "Training", "Religion(2)", "*.txt")
-science_path = os.path.join(base_path, "Training", "Science(3)", "*.txt")
-sample_path = os.path.join(base_path, "Training", "Sample(4)", "*.txt")
+child_path = os.path.join(base_path, "Training", "Child_0", "*.txt")
+history_path = os.path.join(base_path, "Training", "History_1", "*.txt")
+religion_path = os.path.join(base_path, "Training", "Religion_2", "*.txt")
+science_path = os.path.join(base_path, "Training", "Science_3", "*.txt")
 
 paths = [child_path, history_path, religion_path, science_path]
 
@@ -57,6 +56,7 @@ def removeLength(word):
 def makeWordList():
 	wordlist = []
 	mainwordlist = []
+	count = 0
 	i = 0
 	for file in glob.glob(txt_path):
 		new_wordlist = parse(file)
@@ -67,6 +67,8 @@ def makeWordList():
 			wordlist = []
 			i = 0
 		i += 1
+		count += 1
+		print("Appending words from file: " + str(count))
 	mainwordlist += wordlist
 	return list(set(mainwordlist))
 
@@ -89,6 +91,7 @@ def makeMatrix(all_words):
 	all_words.sort()
 	matrix = [all_words + ["FILE"] + ["CLASS"]]
 	rowLength = len(all_words)
+	i = 0
 	j = 0
 	for path in paths:
 		for file in glob.glob(path):
@@ -100,8 +103,10 @@ def makeMatrix(all_words):
 				if pos > -1:
 					row[pos] = d[key]
 			row[-1] = j # This number assigns class
-			row[-2] = file
+			row[-2] = re.search('[0-9]+\.txt', file).group() # Extracts file name (Ex: "123.txt")
 			matrix += [row]
+			i += 1
+			print(path[-20:] + " on iteration " + str(i))
 		j += 1
 	return matrix
 
@@ -124,7 +129,7 @@ def makeCount(all_words, path, classnum):
 				row[pos] = d[key]
 		total = [x + y for x, y in zip(total, row)]
 		i += 1
-		print(path[-20:] + "on iteration " + str(i))
+		print(path[-20:] + " on iteration " + str(i))
 	return [matrix, total]
 
 if __name__ == "__main__":
@@ -191,6 +196,8 @@ if __name__ == "__main__":
 	print("science writing done.")
 
 	print("Done writing out: cleanword & 4 word counts.")
+
+	print("Script complete.")
 
 #with open("allwords", 'wb') as f:
 	#pickle.dump(my_list, f)

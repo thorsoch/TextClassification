@@ -1,8 +1,8 @@
 library(data.table)
 a = fread("totals.csv")
 b = as.data.frame(a)
-words = as.character(b[1, ])
-counts = as.numeric(b[2, ])
+words = names(b)
+counts = as.numeric(b[1, ])
 
 # Returns the number of words
 # that occur more than CUTOFF
@@ -23,9 +23,9 @@ abline(v = 10)
 abline(h = 10000)
 abline(v = 429)
 
-# Find the alpha for 10000 words.
+# Find the alpha for 3000 words.
 
-cutoff_locs = head(which(margincounts <= 3000))
+cutoff_locs = head(which(margincounts <= 2500))
 alphacutoffs = margins[cutoff_locs]
 margincounts[cutoff_locs]
 
@@ -88,3 +88,14 @@ science_sample_index = sample(x = science_locs, size = science_n, replace = FALS
 validation_set_index = c(child_sample_index, history_sample_index,
                         religion_sample_index, science_sample_index)
 validation_set = wordmatrix[validation_set_index, ]
+
+#################################
+#                               #
+#   Double check prop matrix.   #
+#                               #
+#################################
+
+props = fread("matrixprop.csv")
+props = as.data.frame(props)
+dim(props)
+dim(wordmatrix)

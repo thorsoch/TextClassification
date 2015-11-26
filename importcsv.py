@@ -42,7 +42,8 @@ with open("allwords", 'rb') as f:
 print("setting up logistics")
 cleanwords.sort()
 
-freqBar = 360
+freqBarU = 2508
+freqBarT = 130000
 
 print("Making ints for child")
 childCounts = [int(a) for a in dataChild[1]]
@@ -56,7 +57,7 @@ scienceCounts = [int(a) for a in dataScience[1]]
 def makeCutCsv(counts, name, summ):
 	wordslen = len(cleanwords) + 1
 	indall = range(0, wordslen)
-	index = [i for (i, j) in zip(indall, summ) if j > freqBar]
+	index = [i for (i, j) in zip(indall, summ) if j > freqBarU and j < freqBarT]
 	finalMatrix = [[cleanwords[i] for i in index], [counts[i] for i in index]]
 
 	with open(name, "wb") as f:

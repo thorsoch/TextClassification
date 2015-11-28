@@ -122,7 +122,6 @@ def makeMatrix(all_words):
 	rowLength = len(all_words)
 	i = 0
 	j = 0
-	print("I'm here")
 	for path in paths:
 		for file in glob.glob(path):
 			row = [0.0] * (rowLength + 2)
@@ -137,8 +136,6 @@ def makeMatrix(all_words):
 			i += 1
 			print(path[-20:] + " on iteration " + str(i))
 		j += 1
-		print("I'm looping")
-	print("I'm not here")
 	return matrix
 
 # Takes in all the words, and makes a count of every word in all the files of designated path

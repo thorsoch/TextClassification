@@ -1,5 +1,6 @@
 import powerparse
 import csv
+import ast
 
 print("Opening totalspower.csv")
 
@@ -8,8 +9,9 @@ with open("totalspoweruntrimmed.csv", 'rU') as f:  #opens PW file
 	totals = list(list(rec) for rec in csv.reader(f, delimiter=','))
 
 print("Starting parse.makeMatrix()")
-
-finalmat = powerparse.makeMatrix(totals[0])
+a = totals[0][0:10]
+a = list(map(ast.literal_eval, a))
+finalmat = powerparse.makeMatrix(a)
 
 print("Writing out matrix.csv")
 

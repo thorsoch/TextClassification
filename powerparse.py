@@ -118,26 +118,27 @@ def removeWords():
 # Takes in all the words and makes a matrix of the frequency of words in each document.
 
 def makeMatrix(all_words):
-	all_words.sort()
 	matrix = [all_words + ["FILE"] + ["CLASS"]]
 	rowLength = len(all_words)
 	i = 0
 	j = 0
+	print("I'm here")
 	for path in paths:
 		for file in glob.glob(path):
-			row = [0] * (rowLength + 2)
-			new_wordlist = parse(file)
-			d = Counter(new_wordlist)
-			for key in d:
-				pos = binary_search(all_words, key, 0, rowLength)
+			row = [0.0] * (rowLength + 2)
+			new_wordlist = parse(file) #[((w,a), 1), 
+			for item in new_wordlist:
+				pos = binary_search(all_words, item[0], 0, rowLength)
 				if pos > -1:
-					row[pos] = d[key]
+					row[pos] = item[1]
 			row[-1] = j # This number assigns class
 			row[-2] = re.search('[0-9]+\.txt', file).group() # Extracts file name (Ex: "123.txt")
 			matrix += [row]
 			i += 1
 			print(path[-20:] + " on iteration " + str(i))
 		j += 1
+		print("I'm looping")
+	print("I'm not here")
 	return matrix
 
 # Takes in all the words, and makes a count of every word in all the files of designated path

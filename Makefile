@@ -9,4 +9,4 @@ wordmatrix:
 powerparse:
 	ipython powerparse.py
 powercounts:
-	python powerimportcsv.py
+	ipython powerimportcsv.py

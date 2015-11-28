@@ -106,4 +106,33 @@ dim(wordmatrix)
 #                                                      #
 ########################################################
 
-religionpower = fread(input = "religionpower.csv", header = TRUE, verbose = TRUE)
+totalspower = fread(input = "totalspoweruntrimmed2.csv", header = TRUE, verbose = TRUE)
+totalspower = as.data.frame(totalspower)
+
+bigrams = names(totalspower)
+bigramcounts = as.numeric(totalspower)
+
+margincount = function(cutoff) {
+  return(sum(totalspower > cutoff))
+}
+margins = seq(0.22442, 1, 0.005)
+margincounts = sapply(margins, margincount)
+plot(margins, margincounts)
+
+hist(as.numeric(totalspower), breaks = 1000)
+max(as.numeric(totalspower))
+
+x = 100
+margincount(x)
+upperbetalocs = which(bigramcounts > x)
+bigrams[upperbetalocs]
+
+# Testing 4 power cuts
+
+totals = fread("totalspower.csv", header = TRUE, data.table = FALSE)
+View(totals)
+
+childpower = fread("childpowerCut.csv", header = TRUE, data.table = FALSE)
+historypower = fread("historypowerCut.csv", header = TRUE, data.table = FALSE)
+religionpower = fread("religionpowerCut.csv", header = TRUE, data.table = FALSE)
+sciencepower = fread("sciencepowerCut.csv", header = TRUE, data.table = FALSE)

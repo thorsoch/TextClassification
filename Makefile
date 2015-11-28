@@ -8,3 +8,5 @@ wordmatrix:
 	python wordmatrix.py
 powerparse:
 	ipython powerparse.py
+powercounts:
+	python powerimportcsv.py

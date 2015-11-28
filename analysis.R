@@ -99,3 +99,11 @@ props = fread("matrixprop.csv")
 props = as.data.frame(props)
 dim(props)
 dim(wordmatrix)
+
+########################################################
+#                                                      #
+#   Mess around with power matrix counts of bigrams.   #
+#                                                      #
+########################################################
+
+religionpower = fread(input = "religionpower.csv", header = TRUE, verbose = TRUE)

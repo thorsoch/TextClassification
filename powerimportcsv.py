@@ -1,7 +1,7 @@
 import csv 
 import sys
 import pickle
-csv.field_size_limit(sys.maxsize)
+csv.field_size_limit(sys.maxint)
 
 print("Opening child")
 
@@ -29,11 +29,11 @@ with open("sciencepower.csv", 'rU') as f:  #opens PW file
 
 print("Starting sums")
 print("Starting first sum")
-summ = [int(a)+int(b) for (a, b) in zip(dataChild[1], dataHistory[1])]
+summ = [float(a)+float(b) for (a, b) in zip(dataChild[1], dataHistory[1])]
 print("Starting second sum")
-summ = [int(a)+int(b) for (a, b) in zip(summ, dataReligion[1])]
+summ = [float(a)+float(b) for (a, b) in zip(summ, dataReligion[1])]
 print("Starting third sum")
-summ = [int(a)+int(b) for (a, b) in zip(summ, dataScience[1])]
+summ = [float(a)+float(b) for (a, b) in zip(summ, dataScience[1])]
 
 print("Opening allwords")
 with open("allwordsBi", 'rb') as f:
@@ -41,23 +41,24 @@ with open("allwordsBi", 'rb') as f:
 
 print("setting up logistics")
 cleanwords.sort()
+cleanwords += ["CLASS"]
 
-#freqBarU = 2508 #2028 for 3000 words
+freqBarU = 0.64 #0.22442 for 10000 bigrams, 0.64 for 3000 bigrams
 #freqBarT = 130000
 
 print("Making ints for child")
-childCounts = [int(a) for a in dataChild[1]]
+childCounts = [float(a) for a in dataChild[1]]
 print("Making ints for history")
-historyCounts = [int(a) for a in dataHistory[1]]
+historyCounts = [float(a) for a in dataHistory[1]]
 print("Making ints for religion")
-religionCounts = [int(a) for a in dataReligion[1]]
+religionCounts = [float(a) for a in dataReligion[1]]
 print("Making ints for science")
-scienceCounts = [int(a) for a in dataScience[1]]
+scienceCounts = [float(a) for a in dataScience[1]]
 
 def makeCutCsv(counts, name, summ):
 	wordslen = len(cleanwords) + 1
 	indall = range(0, wordslen)
-	index = [i for (i, j) in zip(indall, summ)]
+	index = [i for (i, j) in zip(indall, summ) if j > freqBarU]
 	finalMatrix = [[cleanwords[i] for i in index], [counts[i] for i in index]]
 
 	with open(name, "wb") as f:
@@ -65,14 +66,14 @@ def makeCutCsv(counts, name, summ):
 		writer.writerows(finalMatrix)
 
 print("Making child cuts")
-#makeCutCsv(childCounts, "powerchildCut.csv", summ)
+makeCutCsv(childCounts, "childpowerCut.csv", summ)
 print("Making history cuts")
-#makeCutCsv(historyCounts, "powerhistoryCut.csv", summ)
+makeCutCsv(historyCounts, "historypowerCut.csv", summ)
 print("Making religion cuts")
-#makeCutCsv(religionCounts, "powerreligionCut.csv", summ)
+makeCutCsv(religionCounts, "religionpowerCut.csv", summ)
 print("Making science cuts")
-#makeCutCsv(scienceCounts, "powerscienceCut.csv", summ)
+makeCutCsv(scienceCounts, "sciencepowerCut.csv", summ)
 print("Making totals cuts")
-makeCutCsv(summ, "totalspoweruntrimmed.csv", summ)
+makeCutCsv(summ, "totalspower.csv", summ)
 
 print("Script complete: 4 cut csvs and totals cut made.")

@@ -7,10 +7,6 @@ import parse
 import nltk
 from nltk.corpus import gutenberg
 
-base_path = os.path.abspath(os.path.dirname(__file__))
-path = os.path.join(base_path, "Training", "Sample", "*.txt")
-paths = [path]
-
 def parsetotext(path):
 	file = open(path)
 	text = file.read()
@@ -23,7 +19,7 @@ def makePowerMatrix():
 	rowLength = len(matrix)
 	i = 0
 	j = 0
-	for path in paths: #parse.paths
+	for path in parse.paths: #parse.paths
 		for file in glob.glob(path):
 			row = [0.0] * 22
 
@@ -99,3 +95,6 @@ def makePowerMatrix():
 
 if __name__ == "__main__":
 	matrix = makePowerMatrix()
+	with open("customMatrix.csv", "wb") as f:
+		writer = csv.writer(f)
+		writer.writerows(matrix)

@@ -1,4 +1,4 @@
-.PHONY: initialcounts trimmedcounts wordmatrix powerparse powercounts powermatrix stemparse stemcounts stemmatrix
+.PHONY: initialcounts trimmedcounts wordmatrix powerparse powercounts powermatrix stemparse stemcounts stemmatrix custommatrix1
 
 initialcounts:
 	python parse.py
@@ -18,3 +18,5 @@ powercounts:
 	ipython powerimportcsv.py
 powermatrix:
 	ipython powerwordmatrix.py
+custommatrix1:
+	ipython custommatrix.py

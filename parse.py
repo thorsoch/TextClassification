@@ -24,11 +24,15 @@ paths = [child_path, history_path, religion_path, science_path]
 # parses out words, and returns them as
 # lower case and splitted.
 
-def parse(path):
+def parse(path, lower=True):
 	file = open(path)
 	text = file.read()
-	words = text.lower().split()
-	words = list(map(remSym, words))
+	if lower:
+		words = text.lower().split()
+		words = list(map(remSym, words))
+	else:
+		words = text.split()
+		words = list(map(remSym2, words))
 	words = list(filter(removeLength, words))
 	return words
 
@@ -36,6 +40,8 @@ def parse(path):
 
 def remSym(x):
 	return re.sub("[^a-z]", "", x)
+def remSym2(x):
+	return re.sub("[^a-zA-Z]", "", x)
 
 # Checks if a word is not in the list of words to remove. 
 

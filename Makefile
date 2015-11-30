@@ -20,3 +20,7 @@ powermatrix:
 	ipython powerwordmatrix.py
 custommatrix1:
 	ipython custommatrix.py
+testmatrix:
+	ipython testwordmatrix.py
+testmatrixstem:
+	ipython teststemmatrix.py

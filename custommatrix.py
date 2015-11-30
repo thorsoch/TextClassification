@@ -5,7 +5,23 @@ import glob
 import re
 import parse
 import nltk
+import csv
 from nltk.corpus import gutenberg
+
+
+#sample_path = os.path.join(parse.base_path, "Training", "Sample", "*.txt")
+#paths = [sample_path]
+
+def openPowerWords(filename):
+	good = open(filename)
+	goodwords = remove.read()
+	goodwords = removewords.split(",")
+	return goodwords 
+
+childW = openPowerWords()
+historyW = openPowerWords()
+religionW = openPowerWords()
+scienceW = openPowerWords()
 
 def parsetotext(path):
 	file = open(path)
@@ -15,7 +31,7 @@ def parsetotext(path):
 def makePowerMatrix():
 	matrix = [["uniquecount", "sentence length", "avg word length", "digit prop", "capital prop",
 				"quotation", "question", "exclamation", "noun", "adj", "adv", "verb", "foreign", 
-				"preposition", "pronoun", "interjection", "FILE", "CLASS"]]
+				"preposition", "pronoun", "interjection","childP", "historyP","religionP","scienceP", "FILE", "CLASS"]]
 	rowLength = len(matrix)
 	i = 0
 	j = 0
@@ -54,6 +70,7 @@ def makePowerMatrix():
 			row[6] = question
 			row[7] = exclamation
 
+			wholetext = unicode(wholetext, errors='replace')
 			text = nltk.word_tokenize(wholetext)
 			a = nltk.pos_tag(text)
 			tag_fd = nltk.FreqDist(tag for (word, tag) in a)
@@ -69,11 +86,11 @@ def makePowerMatrix():
 				row[14] = sum([y for (x, y) in a if x in ["PRP", "PRP$", "WP", "WP$"]])/(count*1.0) #pronoun
 				row[15] = sum([y for (x, y) in a if x in ["UH"]])/(count*1.0) #interjection
 
-			# if wordcount != 0:
-			# 	row[16] = len([y for y in textlist if y in childW])/(wordcount*1.0)
-			# 	row[17] = len([y for y in textlist if y in historyW])/(wordcount*1.0)
-			# 	row[18] = len([y for y in textlist if y in religionW])/(wordcount*1.0)
-			# 	row[19] = len([y for y in textlist if y in scienceW])/(wordcount*1.0)
+			if wordcount != 0:
+			 	row[16] = len([y for y in textlist if y in childW])/(wordcount*1.0)
+			 	row[17] = len([y for y in textlist if y in historyW])/(wordcount*1.0)
+			 	row[18] = len([y for y in textlist if y in religionW])/(wordcount*1.0)
+			 	row[19] = len([y for y in textlist if y in scienceW])/(wordcount*1.0)
 
 			row[-1] = j # This number assigns class
 			row[-2] = re.search('[0-9]+\.txt', file).group() # Extracts file name (Ex: "123.txt")

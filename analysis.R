@@ -1,5 +1,5 @@
 library(data.table)
-a = fread("totalsstemuntrimmed.csv")
+a = fread("totals.csv")
 b = as.data.frame(a)
 words = names(b)
 counts = as.numeric(b[1, ])
@@ -136,42 +136,3 @@ childpower = fread("childpowerCut.csv", header = TRUE, data.table = FALSE)
 historypower = fread("historypowerCut.csv", header = TRUE, data.table = FALSE)
 religionpower = fread("religionpowerCut.csv", header = TRUE, data.table = FALSE)
 sciencepower = fread("sciencepowerCut.csv", header = TRUE, data.table = FALSE)
-
-# Testing out powermatrix.csv
-
-powermatrix = fread("powermatrix.csv", header = TRUE, data.table = FALSE)
-
-# Testing new totalsstemuntrimmed.csv
-
-stemuntrimmed = fread("totalsstemuntrimmed.csv", header = TRUE, data.table = FALSE)
-words = names(stemuntrimmed)
-counts = as.numeric(stemuntrimmed)
-hist(counts)
-
-margincount = function(cutoff) {
-  return(sum(counts > cutoff))
-}
-
-margins = 500:4000
-margincounts = sapply(margins, margincount)
-plot(margins, margincounts)
-
-x = 1864
-margincount(x)
-upperbetalocs = which(counts > x)
-words[upperbetalocs]
-
-x = 160000
-margincount(x)
-upperbetalocs = which(counts > x)
-words[upperbetalocs]
-
-childstem = fread("childstem.csv", header = TRUE, data.table = FALSE)
-historystem = fread("historystem.csv", header = TRUE, data.table = FALSE)
-religionstem = fread("religionstem.csv", header = TRUE, data.table = FALSE)
-sciencestem = fread("sciencestem.csv", header = TRUE, data.table = FALSE)
-
-# Testing new stemmatrixprop.csv 
-
-stemmatrix = fread("stemmatrixprop.csv", header = TRUE, data.table = FALSE)
-View(stemmatrix[1:100, 1:100])

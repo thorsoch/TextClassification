@@ -18,9 +18,10 @@ stemcounts:
 	ipython stemimportcsv.py
 stemmatrix:
 	ipython stemwordmatrix.py
-custommatrix1:
+custommatrix:
 	ipython custommatrix.py
 testmatrix:
 	ipython testwordmatrix.py
 testmatrixstem:
 	ipython teststemmatrix.py
+

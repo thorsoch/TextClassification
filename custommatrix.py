@@ -18,8 +18,8 @@ base_path = os.path.abspath(os.path.dirname(__file__))
 
 def openPowerWords(filename):
 	good = open(filename)
-	goodwords = remove.read()
-	goodwords = removewords.split(",")
+	goodwords = good.read()
+	goodwords = goodwords.split(",")
 	return goodwords 
 
 childW = openPowerWords(os.path.join(base_path, "childdict.txt"))

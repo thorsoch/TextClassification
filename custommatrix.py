@@ -41,7 +41,7 @@ def makePowerMatrix():
 	matrix = [["uniquecount", "sentence length", "avg word length", "digit prop", "capital prop",
 				"quotation", "question", "exclamation", "noun", "adj", "adv", "verb", "foreign", 
 				"preposition", "pronoun", "interjection","childW", "historyW","religionW","scienceW",
-				"childWS", "historyWS", "religionWS", "scienceWS" "FILE", "CLASS"]]
+				"childWS", "historyWS", "religionWS", "scienceWS", "FILE", "CLASS"]]
 	rowLength = len(matrix)
 	i = 0
 	j = 0

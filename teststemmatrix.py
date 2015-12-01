@@ -11,9 +11,9 @@ import re
 base_path = os.path.abspath(os.path.dirname(__file__))
 txt_path = os.path.join(base_path, "Practice", "*.txt")
 
-print("Opening totals.csv")
+print("Opening totalsstem.csv")
 
-with open("totals.csv", 'rU') as f:  #opens PW file
+with open("totalsstem.csv", 'rU') as f:  #opens PW file
 	reader = csv.reader(f)
 	totals = list(list(rec) for rec in csv.reader(f, delimiter=','))
 

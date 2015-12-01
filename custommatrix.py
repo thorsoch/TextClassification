@@ -6,11 +6,15 @@ import re
 import parse
 import nltk
 import csv
+import stemparse
 from nltk.corpus import gutenberg
 
 
 #sample_path = os.path.join(parse.base_path, "Training", "Sample", "*.txt")
 #paths = [sample_path]
+
+base_path = os.path.abspath(os.path.dirname(__file__))
+
 
 def openPowerWords(filename):
 	good = open(filename)
@@ -18,10 +22,15 @@ def openPowerWords(filename):
 	goodwords = removewords.split(",")
 	return goodwords 
 
-childW = openPowerWords()
-historyW = openPowerWords()
-religionW = openPowerWords()
-scienceW = openPowerWords()
+childW = openPowerWords(os.path.join(base_path, "childdict.txt"))
+historyW = openPowerWords(os.path.join(base_path, "historydict.txt"))
+religionW = openPowerWords(os.path.join(base_path, "religiondict.txt"))
+scienceW = openPowerWords(os.path.join(base_path, "sciencedict.txt"))
+
+childWS = openPowerWords(os.path.join(base_path, "stemchilddict.txt"))
+historyWS = openPowerWords(os.path.join(base_path, "stemhistorydict.txt"))
+religionWS = openPowerWords(os.path.join(base_path, "stemreligiondict.txt"))
+scienceWS = openPowerWords(os.path.join(base_path, "stemsciencedict.txt"))
 
 def parsetotext(path):
 	file = open(path)
@@ -31,17 +40,19 @@ def parsetotext(path):
 def makePowerMatrix():
 	matrix = [["uniquecount", "sentence length", "avg word length", "digit prop", "capital prop",
 				"quotation", "question", "exclamation", "noun", "adj", "adv", "verb", "foreign", 
-				"preposition", "pronoun", "interjection","childP", "historyP","religionP","scienceP", "FILE", "CLASS"]]
+				"preposition", "pronoun", "interjection","childW", "historyW","religionW","scienceW",
+				"childWS", "historyWS", "religionWS", "scienceWS" "FILE", "CLASS"]]
 	rowLength = len(matrix)
 	i = 0
 	j = 0
 	for path in parse.paths: #parse.paths
 		for file in glob.glob(path):
-			row = [0.0] * 22
+			row = [0.0] * 26
 
 			wholetext = parsetotext(file)
 			textlist = parse.parse(file)
 			textlistNL = parse.parse(file, False) # not lower case
+			textliststem = stemparse.parse(file)
 			doclen = len(wholetext)
 			wordcount = len(textlist)
 
@@ -91,6 +102,10 @@ def makePowerMatrix():
 			 	row[17] = len([y for y in textlist if y in historyW])/(wordcount*1.0)
 			 	row[18] = len([y for y in textlist if y in religionW])/(wordcount*1.0)
 			 	row[19] = len([y for y in textlist if y in scienceW])/(wordcount*1.0)
+			 	row[20] = len([y for y in textliststem if y in childWS])/(wordcount*1.0)
+			 	row[21] = len([y for y in textliststem if y in historyWS])/(wordcount*1.0)
+			 	row[22] = len([y for y in textliststem if y in religionWS])/(wordcount*1.0)
+			 	row[23] = len([y for y in textliststem if y in scienceWS])/(wordcount*1.0)
 
 			row[-1] = j # This number assigns class
 			row[-2] = re.search('[0-9]+\.txt', file).group() # Extracts file name (Ex: "123.txt")

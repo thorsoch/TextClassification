@@ -25,7 +25,7 @@ def makeMatrix(all_words):
 	rowLength = len(all_words)
 	i = 0
 	for file in glob.glob(txt_path):
-		row = [0] * (rowLength + 2)
+		row = [0] * (rowLength + 1)
 		new_wordlist = parse.parse(file)
 		d = Counter(new_wordlist)
 		for key in d:

@@ -48,7 +48,7 @@ print("Setting up logistics for CV")
 
 param_grid = [
   {'C': list(np.logspace(-3, 3, 7)), 'kernel': ['linear']},
-  {'C': list(np.logspace(-3, 3, 7)), 'gamma': list(np.logspace(-3, 3, 7)), 'kernel': ['rbf']}
+  {'C': list(np.logspace(-1, 1, 5)), 'gamma': list(np.logspace(-1, 1, 5)), 'kernel': ['rbf']}
  ]
 
 

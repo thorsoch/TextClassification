@@ -8,7 +8,7 @@ import pickle
 
 print("filterunstemmatrix.csv is opening")
 
-with open("custommatrix.csv", 'rU') as f:  #opens PW file
+with open("customMatrix.csv", 'rU') as f:  #opens PW file
 	reader = csv.reader(f)
 	matrix = list(list(rec) for rec in csv.reader(f, delimiter=','))
 

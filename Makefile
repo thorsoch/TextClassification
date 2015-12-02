@@ -24,4 +24,11 @@ testmatrix:
 	ipython testwordmatrix.py
 testmatrixstem:
 	ipython teststemmatrix.py
+svmmodel:
+	ipython svm.py
+testmatrixcustom:
+	ipython testcustommatrix.py
+testmatrixpower:
+	ipython testpowermatrix.py
+
 

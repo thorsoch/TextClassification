@@ -56,10 +56,9 @@ def makePowerMatrix():
 			doclen = len(wholetext)
 			wordcount = len(textlist)
 
-			period = wholetext.count(".")
 			question = wholetext.count("?")
 			exclamation = wholetext.count("!")
-			quotations = wholetext.count("'") + wholetext.count('"')
+			quotations = (wholetext.count("'") + wholetext.count('"'))
 			uniquecount = len(list(set(textlist)))
 
 			num_words = len(gutenberg.words(file))
@@ -77,9 +76,9 @@ def makePowerMatrix():
 				a = [x.isupper() for x in [y[0] for y in textlistNL]]
 				row[4] = sum(a)/(doclen*1.0)
 
-			row[5] = quotations
-			row[6] = question
-			row[7] = exclamation
+			row[5] = quotations / (wordcount * 1.0)
+			row[6] = question / (wordcount * 1.0)
+			row[7] = exclamation / (wordcount * 1.0)
 
 			wholetext = unicode(wholetext, errors='replace')
 			text = nltk.word_tokenize(wholetext)
@@ -130,3 +129,4 @@ if __name__ == "__main__":
 	with open("customMatrix.csv", "wb") as f:
 		writer = csv.writer(f)
 		writer.writerows(matrix)
+	print("Script Complete.")

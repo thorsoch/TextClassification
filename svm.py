@@ -8,7 +8,7 @@ import pickle
 
 print("filterunstemmatrix.csv is opening")
 
-with open("filterunstemmatrix.csv", 'rU') as f:  #opens PW file
+with open("custommatrix.csv", 'rU') as f:  #opens PW file
 	reader = csv.reader(f)
 	matrix = list(list(rec) for rec in csv.reader(f, delimiter=','))
 
@@ -22,7 +22,7 @@ for row in matrix:
 	if z == 0:
 		z = 1
 		continue
-	X += [row[:-1]]
+	X += [row[:-2]]
 	Y += [row[-1]]
 
 # clf = svm.SVC(kernel = 'linear') #'rbf' has gamma parameter
@@ -38,6 +38,7 @@ z2 = 0
 for row in X:
 	X[z2] = map(float, row)
 	z2 += 1
+	print(z2)
 
 # clf.predict(Matrix for test)
 
@@ -47,13 +48,14 @@ for row in X:
 print("Setting up logistics for CV")
 
 param_grid = [
-  {'C': list(np.logspace(-3, 3, 7)), 'kernel': ['linear']},
-  {'C': list(np.logspace(-1, 1, 5)), 'gamma': list(np.logspace(-1, 1, 5)), 'kernel': ['rbf']}
+  {'C': list(np.logspace(-2, 4, 8)), 'kernel': ['linear']}
+  # ,
+  # {'C': list(np.logspace(-1, 1, 5)), 'gamma': list(np.logspace(-1, 1, 5)), 'kernel': ['rbf']}
  ]
 
 
 svr = svm.SVC()
-clf = grid_search.GridSearchCV(svr, param_grid, cv = 5, verbose = 2)
+clf = grid_search.GridSearchCV(svr, param_grid, cv = 5, verbose = 4)
 
 # def garb(a):
 #  	return int(round(random.random()*len(X))) - 1

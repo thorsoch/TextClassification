@@ -82,7 +82,7 @@ print("Cross Validation complete.")
 
 print("Writing out object")
 
-with open("svm_cvmodel_allfeatures, "wb") as f:
+with open("svm_cvmodel_allfeatures", "wb") as f:
 	pickle.dump(ok, f)
 
 print("Best Score is: ")

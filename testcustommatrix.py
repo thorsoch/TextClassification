@@ -99,7 +99,7 @@ def makePowerMatrix():
 
 if __name__ == "__main__":
 	matrix = makePowerMatrix()
-	with open("testcustomMatrix.csv", "wb") as f:
+	with open("testcustomfilteredMatrix.csv", "wb") as f:
 		writer = csv.writer(f)
 		writer.writerows(matrix)
 	print("Script Complete.")

@@ -1,4 +1,6 @@
-.PHONY: initialcounts trimmedcounts wordmatrix powerparse powercounts powermatrix stemparse stemcounts stemmatrix custommatrix1 testmatrix testmatrixstem
+.PHONY: initialcounts trimmedcounts wordmatrix powerparse powercounts powermatrix
+		stemparse stemcounts stemmatrix custommatrix1 testmatrix testmatrixstem
+		testmatrixcustom testmatrixpower svmmodel
 
 initialcounts:
 	python parse.py
@@ -24,11 +26,16 @@ testmatrix:
 	ipython testwordmatrix.py
 testmatrixstem:
 	ipython teststemmatrix.py
-svmmodel:
-	ipython svm.py
 testmatrixcustom:
 	ipython testcustommatrix.py
 testmatrixpower:
 	ipython testpowermatrix.py
+svmmodel:
+	ipython svm.py
+filteredmatrixword:
+	ipython filteredwordmatrix.py
+filteredmatrixpower:
+	ipython filteredpowermatrix.py
+
 
 

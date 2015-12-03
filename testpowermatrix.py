@@ -11,11 +11,11 @@ import re
 base_path = os.path.abspath(os.path.dirname(__file__))
 txt_path = os.path.join(base_path, "Practice", "*.txt")
 
-print("Opening totalspower.csv")
+print("Opening bigramspredictors.csv")
 
-with open("totalspower.csv", 'rU') as f:  #opens PW file
+with open("bigramspredictors.csv", 'rU') as f:  #opens PW file
 	reader = csv.reader(f)
-	totals = list(list(rec) for rec in csv.reader(f, delimiter=','))
+	bigrams = list(list(rec) for rec in csv.reader(f, delimiter=','))
 
 # Takes in all the words and makes a matrix of the frequency of words in each document.
 
@@ -37,13 +37,13 @@ def makeMatrix(all_words):
 	return matrix
 
 print("Starting makeMatrix()")
-a = totals[0][0:len(totals[0])-1]
+a = [item for sublist in bigrams for item in sublist]
 a = list(map(ast.literal_eval, a))
 finalmat = makeMatrix(a)
 
-print("Writing out testpowerMatrix.csv")
+print("Writing out testpowerfilteredMatrix.csv")
 
-with open("testpowerMatrix.csv", "wb") as f:
+with open("testpowerfilteredMatrix.csv", "wb") as f:
 		writer = csv.writer(f)
 		writer.writerows(finalmat)
 

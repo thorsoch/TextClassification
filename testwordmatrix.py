@@ -11,11 +11,11 @@ import re
 base_path = os.path.abspath(os.path.dirname(__file__))
 txt_path = os.path.join(base_path, "Practice", "*.txt")
 
-print("Opening totals.csv")
+print("Opening unstemmedpredictors.csv")
 
-with open("totals.csv", 'rU') as f:  #opens PW file
+with open("unstemmedpredictors.csv", 'rU') as f:  #opens PW file
 	reader = csv.reader(f)
-	totals = list(list(rec) for rec in csv.reader(f, delimiter=','))
+	pred = list(list(rec) for rec in csv.reader(f, delimiter=','))
 
 # Takes in all the words and makes a matrix of the frequency of words in each document.
 
@@ -38,9 +38,11 @@ def makeMatrix(all_words):
 		print(txt_path[-20:] + " on iteration " + str(i))
 	return matrix
 
+pred2 = [item for sublist in pred for item in sublist]
+
 print("Starting to make word matrix.")
 
-finalmat = makeMatrix(totals[0])
+finalmat = makeMatrix(pred2)
 
 print("Making proportion matrix")
 
@@ -60,7 +62,7 @@ for row in finalmat:
 			row[i] = val/(totalcount*1.0)
 			i += 1
 
-with open("testprop.csv", "wb") as f:
+with open("testfilteredprop.csv", "wb") as f:
 		writer = csv.writer(f)
 		writer.writerows(finalmat)
 

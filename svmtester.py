@@ -8,6 +8,7 @@ import csv
 import random
 import numpy as np
 import pickle
+import re
 
 print("allfeaturestest.csv is opening")
 

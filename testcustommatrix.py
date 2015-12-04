@@ -53,6 +53,9 @@ def makePowerMatrix():
 			row[0] = uniquecount/(wordcount*1.0)
 			lenmap = map(len, textlist)
 			row[2] = sum(lenmap)/(wordcount*1.0)
+			row[5] = quotations / (wordcount * 1.0)
+			row[6] = question / (wordcount * 1.0)
+			row[7] = exclamation / (wordcount * 1.0)			
 		if num_sents != 0:
 			row[1] = round(num_words/num_sents)
 
@@ -61,9 +64,7 @@ def makePowerMatrix():
 			a = [x.isupper() for x in [y[0] for y in textlistNL]]
 			row[4] = sum(a)/(doclen*1.0)
 
-		row[5] = quotations / (wordcount * 1.0)
-		row[6] = question / (wordcount * 1.0)
-		row[7] = exclamation / (wordcount * 1.0)
+
 
 		wholetext = unicode(wholetext, errors='replace')
 		text = nltk.word_tokenize(wholetext)
@@ -82,14 +83,14 @@ def makePowerMatrix():
 			row[15] = sum([y for (x, y) in a if x in ["UH"]])/(count*1.0) #interjection
 
 		if wordcount != 0:
-		 	row[16] = len([y for y in textlist if y in childW])/(wordcount*1.0)
-		 	row[17] = len([y for y in textlist if y in historyW])/(wordcount*1.0)
-		 	row[18] = len([y for y in textlist if y in religionW])/(wordcount*1.0)
-		 	row[19] = len([y for y in textlist if y in scienceW])/(wordcount*1.0)
-		 	row[20] = len([y for y in textliststem if y in childWS])/(wordcount*1.0)
-		 	row[21] = len([y for y in textliststem if y in historyWS])/(wordcount*1.0)
-		 	row[22] = len([y for y in textliststem if y in religionWS])/(wordcount*1.0)
-		 	row[23] = len([y for y in textliststem if y in scienceWS])/(wordcount*1.0)
+			row[16] = len([y for y in textlist if y in childW])/(wordcount*1.0)
+			row[17] = len([y for y in textlist if y in historyW])/(wordcount*1.0)
+			row[18] = len([y for y in textlist if y in religionW])/(wordcount*1.0)
+			row[19] = len([y for y in textlist if y in scienceW])/(wordcount*1.0)
+			row[20] = len([y for y in textliststem if y in childWS])/(wordcount*1.0)
+			row[21] = len([y for y in textliststem if y in historyWS])/(wordcount*1.0)
+			row[22] = len([y for y in textliststem if y in religionWS])/(wordcount*1.0)
+			row[23] = len([y for y in textliststem if y in scienceWS])/(wordcount*1.0)
 
 		row[-1] = re.search('[0-9]+\.txt', file).group() # Extracts file name (Ex: "123.txt")
 		matrix += [row]

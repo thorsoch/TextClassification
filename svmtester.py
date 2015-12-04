@@ -15,7 +15,7 @@ with open("allfeaturestest.csv", 'rU') as f:  #opens PW file
 	reader = csv.reader(f)
 	testmatrix = list(list(rec) for rec in csv.reader(f, delimiter=','))
 
-with open("goodsvm", "rb") as f: #"goodSVM"
+with open("goodSVM", "rb") as f: #"goodSVM"
 	goodmodel = pickle.load(f)
 
 print("Changing strings into numbers")

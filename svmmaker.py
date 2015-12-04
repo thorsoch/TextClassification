@@ -38,13 +38,49 @@ for row in X:
 	z2 += 1
 	print(z2)
 
+print("Training 50 Model")
 
-clf = svm.SVC(kernel = 'linear', C = 100, verbose = True) 
+clf = svm.SVC(kernel = 'linear', C = 50, verbose = True) 
 #clf = svm.SVC(kernel = 'rbf', decision_function_shape='ovo', C = INSERT_HERE, gamma = INSERT_HERE) 
 
-print("Training Model")
 ok = clf.fit(X, Y)
 
-with open("goodSVM", "wb") as f:
+print("Writing 50 Model")
+
+with open("goodSVM_linear50", "wb") as f:
 	pickle.dump(ok, f)
 
+print("Training 75 Model")
+
+clf = svm.SVC(kernel = 'linear', C = 75, verbose = True)
+
+ok = clf.fit(X, Y)
+
+print("Writing 75 Model")
+
+with open("goodSVM_linear75", "wb") as f:
+	pickle.dump(ok, f)
+
+print("Training 500 Model")
+
+clf = svm.SVC(kernel = 'linear', C = 500, verbose = True)
+
+ok = clf.fit(X, Y)
+
+print("Writing 500 Model")
+
+with open("goodSVM_linear500", "wb") as f:
+	pickle.dump(ok, f)
+
+print("Training 1000 Model")
+
+clf = svm.SVC(kernel = 'linear', C = 1000, verbose = True)
+
+ok = clf.fit(X, Y)
+
+print("Writing 1000 Model")
+
+with open("goodSVM_linear1000", "wb") as f:
+	pickle.dump(ok, f)
+
+print("Script Complete")

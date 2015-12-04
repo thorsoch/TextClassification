@@ -39,7 +39,7 @@ for row in X:
 	print(z2)
 
 
-clf = svm.SVC(kernel = 'linear', C = 100) 
+clf = svm.SVC(kernel = 'linear', C = 100, verbose = True) 
 #clf = svm.SVC(kernel = 'rbf', decision_function_shape='ovo', C = INSERT_HERE, gamma = INSERT_HERE) 
 
 print("Training Model")

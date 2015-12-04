@@ -5,6 +5,9 @@ import csv
 import random
 import numpy as np
 import pickle
+import sys
+
+csv.field_size_limit(sys.maxint)
 
 print("allfeatures.csv is opening")
 

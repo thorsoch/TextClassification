@@ -31,7 +31,7 @@ testmatrixcustom:
 	ipython testcustommatrix.py
 testmatrixpower:
 	ipython testpowermatrix.py
-svmmodel:
+svmmodelCV:
 	ipython svm.py
 filteredmatrixword:
 	ipython filteredwordmatrix.py
@@ -45,7 +45,7 @@ trainingwordfeatures:
 	ipython parse.py
 	ipython importcsv.py
 	ipython filteredwordmatrix.py
-svmmodelradial:
+svmmodelradialCV:
 	ipython svmradial.py
 
 

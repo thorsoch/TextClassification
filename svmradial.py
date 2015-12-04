@@ -48,33 +48,19 @@ for row in X:
 print("Setting up logistics for CV")
 
 param_grid = [
-  {'C': [50, 75, 500, 1000], 'kernel': ['linear']}
-  # ,
-  # {'C': list(np.logspace(-1, 1, 5)), 'gamma': list(np.logspace(-1, 1, 5)), 'kernel': ['rbf']}
+  {'C': list(np.logspace(-1, 2, 5)), 'gamma': list(np.logspace(-1, 2, 5)), 'kernel': ['rbf']}
  ]
 
 
 svr = svm.SVC()
 clf = grid_search.GridSearchCV(svr, param_grid, cv = 5, verbose = 4)
 
-# def garb(a):
-#  	return int(round(random.random()*len(X))) - 1
-
-# randomIndexTrain = map(garb, range(500))
-# randomIndexTest = map(garb, range(20))
-# xtrain = [X[i] for i in randomIndexTrain]
-# ytrain = [Y[i] for i in randomIndexTrain]
-# xtest = [X[i] for i in randomIndexTest]
-# ytest = [Y[i] for i in randomIndexTest]
-
-#ok = clf.fit(xtrain, ytrain)
-# """ 
-# This does the crossvalidation. It will take a long time. The ok variable contains
-# the best parameters which can be accessed by ok.best_params_.
-# ok.predict(X) can be run on a test set.
-# """
+#size = len(X)
 
 print("Beginning Cross Validation")
+#ind = random.sample(range(size), size/10)
+#sampleX = [X[x] for x in ind]
+#sampleY = [Y[x] for x in ind]
 
 ok = clf.fit(X, Y)
 
@@ -82,7 +68,7 @@ print("Cross Validation complete.")
 
 print("Writing out object")
 
-with open("svm_cvmodel_allfeatures_linear_0", "wb") as f:
+with open("svm_cvmodel_allfeatures_radial", "wb") as f:
 	pickle.dump(ok, f)
 
 print("Best Score is: ")
@@ -95,19 +81,3 @@ print("Grid Scores are: ")
 print(ok.grid_scores_)
 
 print("Script complete.")
-
-
-
-# def garb(a):
-# 	return int(round(random.random()*len(X))) - 1
-
-# randomIndexTrain = map(garb, range(10000))
-# randomIndexTest = map(garb, range(20))
-# xtrain = [X[i] for i in randomIndexTrain]
-# ytrain = [Y[i] for i in randomIndexTrain]
-# xtest = [X[i] for i in randomIndexTest]
-# ytest = [Y[i] for i in randomIndexTest]
-
-# clf.fit(xtrain, ytrain)
-# clf.predict(xtest)
-

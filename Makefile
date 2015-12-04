@@ -43,6 +43,8 @@ trainingwordfeatures:
 	ipython parse.py
 	ipython importcsv.py
 	ipython filteredwordmatrix.py
+svmmodelradial:
+	ipython svmradial.py
 
 
 

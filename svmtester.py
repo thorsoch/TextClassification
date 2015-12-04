@@ -40,12 +40,18 @@ for row in X:
 	z2 += 1
 	print(z2)
 
+print("Predicting labels")
+
 predicted = goodmodel.predict(X)
 
 def numonly(x):
 	return int(re.sub("[^0-9]", "", x))
 
+print("Cleaning up text file names.")
+
 file_names = map(numonly, file_names)
+
+print("Resorting file names and labels")
 
 final = zip(file_names, list(predicted))
 final.sort()
@@ -53,9 +59,12 @@ x = map(list, final)
 
 x = [["id", "category"]] + x
 
+print("Writing out testsvmpredictions.csv")
+
 with open("testsvmpredictions.csv", "wb") as f:
 	writer = csv.writer(f)
 	writer.writerows(x)
 	
+print("Script complete.")
 
 

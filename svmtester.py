@@ -18,8 +18,6 @@ with open("allfeaturestest.csv", 'rU') as f:  #opens PW file
 with open("goodSVM", "rb") as f: #"goodSVM"
 	goodmodel = pickle.load(f)
 
-print("Changing strings into numbers")
-
 print("Splitting labels and predictors")
 file_names =[]
 X = [] # X = matrix of train
@@ -35,6 +33,7 @@ for row in testmatrix:
 	z2 += 1
 	print(z2)
 
+print("Changing strings into numbers")
 z2 = 0
 for row in X:
 	X[z2] = map(float, row)

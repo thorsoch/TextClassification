@@ -117,3 +117,5 @@ print("Writing powermodel")
 
 with open("boostpowermodel", "wb") as f:
 	pickle.dump(ok, f)
+
+print("Script complete.")

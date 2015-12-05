@@ -5,9 +5,9 @@ import csv
 import random
 import pickle
 
-print("trainingwordpower.csv is opening")
+print("trainingpower.csv is opening")
 
-with open("trainingwordpower.csv", 'rU') as f:  #opens PW file
+with open("trainingpower.csv", 'rU') as f:  #opens PW file
 	reader = csv.reader(f)
 	matrix = list(list(rec) for rec in csv.reader(f, delimiter=','))
 
@@ -54,7 +54,7 @@ print("Cross Validation complete.")
 
 print("Writing out object")
 
-with open("boost_wordpower_CV_0", "wb") as f:
+with open("boost_power_CV_0", "wb") as f:
 	pickle.dump(ok, f)
 
 print("Best Score is: ")

@@ -54,7 +54,7 @@ param_grid = [
  ]
 
 size = len(X)
-ind = random.sample(range(size), size/10)
+ind = random.sample(range(size), size/5)
 sampleX = [X[x] for x in ind]
 sampleY = [Y[x] for x in ind]
 

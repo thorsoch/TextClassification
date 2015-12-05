@@ -31,25 +31,24 @@ z2 = 0
 for row in X:
 	X[z2] = map(float, row)
 	z2 += 1
-	print(z2)
 
 print("Doing CV")
 gbc = GradientBoostingClassifier(verbose = 1)
-param_grid = {"learning_rate": [0.001, 0.01, 0.1], "n_estimators": [100, 500, 700], "max_depth": [1,2,3]}
+param_grid = {"learning_rate": [0.001, 0.01, 0.1], "n_estimators": [100, 500, 700], "max_depth": [1,2]}
 # n_estimators is number of trees
 # learning rate typically 0.01 and 0.001
 # number of splits in each tree (1 works well usually) 225
 
 bestmodel = grid_search.GridSearchCV(gbc, param_grid, cv = 5)
 
-# size = len(X)
-# ind = random.sample(range(size), size/100)
-# sampleX = [X[x] for x in ind]
-# sampleY = [Y[x] for x in ind]
+size = len(X)
+ind = random.sample(range(size), size/5)
+sampleX = [X[x] for x in ind]
+sampleY = [Y[x] for x in ind]
 
-# ok = bestmodel.fit(sampleX, sampleY)
+ok = bestmodel.fit(sampleX, sampleY)
 
-ok = bestmodel.fit(X, Y)
+# ok = bestmodel.fit(X, Y)
 
 print("Cross Validation complete.")
 
@@ -69,14 +68,14 @@ print(ok.grid_scores_)
 
 print("Script complete.")
 
-def cv_estimate(n_folds=3):
-    cv = KFold(n=X_train.shape[0], n_folds=n_folds)
-    cv_clf = ensemble.GradientBoostingClassifier(**params)
-    val_scores = np.zeros((n_estimators,), dtype=np.float64)
-    for train, test in cv:
-        cv_clf.fit(X_train[train], y_train[train])
-        val_scores += heldout_score(cv_clf, X_train[test], y_train[test])
-    val_scores /= n_folds
-    return val_scores
+# def cv_estimate(n_folds=3):
+#     cv = KFold(n=X_train.shape[0], n_folds=n_folds)
+#     cv_clf = ensemble.GradientBoostingClassifier(**params)
+#     val_scores = np.zeros((n_estimators,), dtype=np.float64)
+#     for train, test in cv:
+#         cv_clf.fit(X_train[train], y_train[train])
+#         val_scores += heldout_score(cv_clf, X_train[test], y_train[test])
+#     val_scores /= n_folds
+#     return val_scores
 
 # http://scikit-learn.org/stable/auto_examples/ensemble/plot_gradient_boosting_oob.html

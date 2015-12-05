@@ -101,7 +101,7 @@ for row in X:
 # 	z2 += 1
 # 	print(z2)
 
-gbc = GradientBoostingClassifier(verbose = 1, learning_rate=0.1, n_estimators=500, max_depth=2)
+gbc = GradientBoostingClassifier(verbose = 1, learning_rate=0.3, n_estimators=700, max_depth=3)
 #clf = svm.SVC(kernel = 'rbf', decision_function_shape='ovo', C = INSERT_HERE, gamma = INSERT_HERE) 
 
 print("Training wordpowermodel")

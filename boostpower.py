@@ -5,9 +5,9 @@ import csv
 import random
 import pickle
 
-print("trainingpower.csv is opening")
+print("trainingpowerNB.csv is opening")
 
-with open("trainingpower.csv", 'rU') as f:  #opens PW file
+with open("trainingpowerNB.csv", 'rU') as f:  #opens PW file
 	reader = csv.reader(f)
 	matrix = list(list(rec) for rec in csv.reader(f, delimiter=','))
 

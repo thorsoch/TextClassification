@@ -48,13 +48,13 @@ for row in X:
 print("Setting up logistics for CV")
 
 param_grid = [
-  {'C': [75, 100, 150], 'kernel': ['linear']}
+  {'C': list(np.logspace(-3, 3, 10)), 'kernel': ['linear']}
   # ,
   # {'C': list(np.logspace(-1, 1, 5)), 'gamma': list(np.logspace(-1, 1, 5)), 'kernel': ['rbf']}
  ]
 
 size = len(X)
-ind = random.sample(range(size), size/10)
+ind = random.sample(range(size), size/5)
 sampleX = [X[x] for x in ind]
 sampleY = [Y[x] for x in ind]
 

@@ -9,9 +9,11 @@ import random
 import numpy as np
 import pickle
 
-print("allfeatures.csv is opening")
+# Open up the training set.
 
-with open("allfeatures.csv", 'rU') as f:  #opens PW file
+print("trainingwordpower.csv is opening")
+
+with open("trainingwordpower.csv", 'rU') as f:  #opens PW file
 	reader = csv.reader(f)
 	matrix = list(list(rec) for rec in csv.reader(f, delimiter=','))
 
@@ -77,6 +79,8 @@ print("Training 1000 Model")
 clf = svm.SVC(kernel = 'linear', C = 1000, verbose = True)
 
 ok = clf.fit(X, Y)
+
+# Change the model name.
 
 print("Writing 1000 Model")
 

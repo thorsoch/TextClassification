@@ -9,9 +9,9 @@ import sys
 
 csv.field_size_limit(sys.maxint)
 
-print("trainingwordpower.csv is opening")
+print("trainingpower.csv is opening")
 
-with open("trainingwordpower.csv", 'rU') as f:  #opens PW file
+with open("trainingpower.csv", 'rU') as f:  #opens PW file
 	reader = csv.reader(f)
 	matrix = list(list(rec) for rec in csv.reader(f, delimiter=','))
 
@@ -75,7 +75,7 @@ print("Cross Validation complete.")
 
 print("Writing out object")
 
-with open("svm_cvmodel_allfeatures_radial", "wb") as f:
+with open("svm_radial_power_CV_0", "wb") as f:
 	pickle.dump(ok, f)
 
 print("Best Score is: ")

@@ -6,9 +6,9 @@ import random
 import numpy as np
 import pickle
 
-print("allfeatures.csv is opening")
+print("trainingwordpower.csv is opening")
 
-with open("allfeatures.csv", 'rU') as f:  #opens PW file
+with open("trainingwordpower.csv", 'rU') as f:  #opens PW file
 	reader = csv.reader(f)
 	matrix = list(list(rec) for rec in csv.reader(f, delimiter=','))
 
@@ -48,11 +48,15 @@ for row in X:
 print("Setting up logistics for CV")
 
 param_grid = [
-  {'C': [50, 75, 500, 1000], 'kernel': ['linear']}
+  {'C': [75, 100, 150], 'kernel': ['linear']}
   # ,
   # {'C': list(np.logspace(-1, 1, 5)), 'gamma': list(np.logspace(-1, 1, 5)), 'kernel': ['rbf']}
  ]
 
+size = len(X)
+ind = random.sample(range(size), size/10)
+sampleX = [X[x] for x in ind]
+sampleY = [Y[x] for x in ind]
 
 svr = svm.SVC()
 clf = grid_search.GridSearchCV(svr, param_grid, cv = 5, verbose = 4)
@@ -76,13 +80,13 @@ clf = grid_search.GridSearchCV(svr, param_grid, cv = 5, verbose = 4)
 
 print("Beginning Cross Validation")
 
-ok = clf.fit(X, Y)
+ok = clf.fit(sampleX, sampleY)
 
 print("Cross Validation complete.")
 
 print("Writing out object")
 
-with open("svm_cvmodel_allfeatures_linear_0", "wb") as f:
+with open("svm_linear_wordpower_CV_0", "wb") as f:
 	pickle.dump(ok, f)
 
 print("Best Score is: ")

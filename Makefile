@@ -1,7 +1,7 @@
 .PHONY: initialcounts trimmedcounts wordmatrix powerparse powercounts powermatrix
 		stemparse stemcounts stemmatrix custommatrix1 testmatrix testmatrixstem
 		testmatrixcustom testmatrixpower svmmodel filteredmatrixword filteredmatrixpower
-		svmmaker svmtester trainingwordfeatures svmmodelradial
+		svmmaker svmtester trainingwordfeatures svmmodelradial boostmodelCV
 
 initialcounts:
 	python parse.py
@@ -31,7 +31,7 @@ testmatrixcustom:
 	ipython testcustommatrix.py
 testmatrixpower:
 	ipython testpowermatrix.py
-svmmodelCV:
+svmmodellinearCV:
 	ipython svm.py
 filteredmatrixword:
 	ipython filteredwordmatrix.py
@@ -49,6 +49,14 @@ svmmodelradialCV:
 	ipython svmradial.py
 boostmodelCV:
 	ipython boost.py
+svmmodellinearwordCV:
+	ipython svmlinearword.py
+svmmodellinearpowerCV:
+	ipython svmlinearpower.py
+svmmodelradialwordCV:
+	ipython svmradialword.py
+svmmodelradialpowerCV:
+	ipython svmradialpower.py
 
 
 

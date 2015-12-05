@@ -19,7 +19,7 @@ with open("testwordpowerNB.csv", 'rU') as f:  #opens PW file
 
 print("boostwordpowerNBmodel is opening")
 
-with open("boostpowerNBmodel", "rb") as f: #"goodSVM"
+with open("boostwordpowerNBmodel", "rb") as f: #"goodSVM"
 	goodmodel = pickle.load(f)
 
 print("Splitting labels and predictors")

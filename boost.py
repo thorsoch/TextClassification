@@ -5,9 +5,9 @@ import csv
 import random
 import pickle
 
-print("trainingwordpower.csv is opening")
+print("trainingwordpowerNB.csv is opening")
 
-with open("trainingwordpower.csv", 'rU') as f:  #opens PW file
+with open("trainingwordpowerNB.csv", 'rU') as f:  #opens PW file
 	reader = csv.reader(f)
 	matrix = list(list(rec) for rec in csv.reader(f, delimiter=','))
 
@@ -34,7 +34,7 @@ for row in X:
 
 print("Doing CV")
 gbc = GradientBoostingClassifier(verbose = 1)
-param_grid = {"learning_rate": [0.001, 0.01, 0.1], "n_estimators": [200], "max_depth": [1, 2]}
+param_grid = {"learning_rate": [0.001, 0.01, 0.1], "n_estimators": [500], "max_depth": [1, 2]}
 # n_estimators is number of trees
 # learning rate typically 0.01 and 0.001
 # number of splits in each tree (1 works well usually) 225

@@ -47,6 +47,9 @@ trainingwordfeatures:
 	ipython filteredwordmatrix.py
 svmmodelradialCV:
 	ipython svmradial.py
+boostmodelCV:
+	ipython boost.py
+
 
 
 

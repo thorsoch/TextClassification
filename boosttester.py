@@ -10,14 +10,14 @@ import numpy as np
 import pickle
 import re
 
-print("testpowerNB.csv is opening")
+print("testwordpowerNB.csv is opening")
 
 # trainingwordpower trainingword
-with open("testpowerNB.csv", 'rU') as f:  #opens PW file
+with open("testwordpowerNB.csv", 'rU') as f:  #opens PW file
 	reader = csv.reader(f)
 	testmatrix = list(list(rec) for rec in csv.reader(f, delimiter=','))
 
-print("boostpowerNBmodel is opening")
+print("boostwordpowerNBmodel is opening")
 
 with open("boostpowerNBmodel", "rb") as f: #"goodSVM"
 	goodmodel = pickle.load(f)
@@ -65,7 +65,7 @@ x = [["id", "category"]] + x
 
 print("Writing out predictions")
 
-with open("testboostpowerpred.csv", "wb") as f:
+with open("testboostwordpowerpred.csv", "wb") as f:
 	writer = csv.writer(f)
 	writer.writerows(x)
 	

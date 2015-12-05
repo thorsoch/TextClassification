@@ -11,21 +11,26 @@ import csv
 import random
 import pickle
 
-print("trainingwordpower.csv is opening")
+print("trainingword.csv is opening")
 
 with open("trainingword.csv", 'rU') as f:  #opens PW file
 	reader = csv.reader(f)
 	matrix1 = list(list(rec) for rec in csv.reader(f, delimiter=','))
 
+print("trainingwordpower.csv is opening")
+
 with open("trainingwordpower.csv", 'rU') as f:  #opens PW file
 	reader = csv.reader(f)
 	matrix = list(list(rec) for rec in csv.reader(f, delimiter=','))
 
-with open("traningpower.csv", 'rU') as f:  #opens PW file
+print("trainingpower.csv is opening")
+
+with open("trainingpower.csv", 'rU') as f:  #opens PW file
 	reader = csv.reader(f)
 	matrix2 = list(list(rec) for rec in csv.reader(f, delimiter=','))
 
-print("Splitting labels and predictors")
+print("Splitting labels and predictors: wordpower")
+
 file_names =[]
 X = [] # X = matrix of train
 Y = [] # Y = class Values
@@ -38,6 +43,8 @@ for row in matrix:
 	X += [row[:-2]]
 	Y += [row[-1]]
 	file_names += [row[-2]]
+
+print("Splitting labels and predictors: word")
 
 file_names1 =[]
 X1 = [] # X = matrix of train
@@ -52,6 +59,8 @@ for row in matrix1:
 	Y1 += [row[-1]]
 	file_names1 += [row[-2]]
 
+print("Splitting labels and predictors: power")
+
 file_names2 =[]
 X2 = [] # X = matrix of train
 Y2 = [] # Y = class Values
@@ -65,7 +74,7 @@ for row in matrix2:
 	Y2 += [row[-1]]
 	file_names2 += [row[-2]]
 
-print("Changing strings into numbers")
+print("Changing strings into numbers: wordpower")
 
 Y = map(int, Y)
 z2 = 0
@@ -74,12 +83,16 @@ for row in X:
 	z2 += 1
 	print(z2)
 
+print("Changing strings into numbers: word")
+
 Y1 = map(int, Y)
 z2 = 0
 for row in X:
 	X1[z2] = map(float, row)
 	z2 += 1
 	print(z2)
+
+print("Changing strings into numbers: power")
 
 Y2 = map(int, Y)
 z2 = 0

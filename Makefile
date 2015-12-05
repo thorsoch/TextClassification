@@ -58,9 +58,9 @@ svmmodelradialwordCV:
 	ipython svmradialword.py
 svmmodelradialpowerCV:
 	ipython svmradialpower.py
-boostword:
+boostmodelwordCV:
 	ipython boostword.py
-boostpower:
+boostmodelpowerCV:
 	ipython boostpower.py
 
 

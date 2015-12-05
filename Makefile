@@ -64,6 +64,8 @@ boostmodelpowerCV:
 	ipython boostpower.py
 boostmaker:
 	ipython boostmaker.py
+boosttester:
+	ipython boosttester.py
 
 
 

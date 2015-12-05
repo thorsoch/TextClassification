@@ -91,20 +91,29 @@ for row in X:
 gbc = GradientBoostingClassifier(verbose = 1, learning=0.01, n_estimators=500, max_depth=2)
 #clf = svm.SVC(kernel = 'rbf', decision_function_shape='ovo', C = INSERT_HERE, gamma = INSERT_HERE) 
 
-print("Training Model")
+print("Training wordpowermodel")
+
 ok = gbc.fit(X, Y)
+
+print("Writing wordpowermodel")
 
 with open("boostwordpowermodel", "wb") as f:
 	pickle.dump(ok, f)
 
-print("Training Model")
+print("Training wordmodel")
+
 ok = gbc.fit(X1, Y1)
+
+print("Writing wordmodel")
 
 with open("boostwordmodel", "wb") as f:
 	pickle.dump(ok, f)
 
-print("Training Model")
+print("Training powermodel")
+
 ok = gbc.fit(X2, Y2)
+
+print("Writing powermodel")
 
 with open("boostpowermodel", "wb") as f:
 	pickle.dump(ok, f)

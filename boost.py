@@ -34,7 +34,7 @@ for row in X:
 
 print("Doing CV")
 gbc = GradientBoostingClassifier(verbose = 1)
-param_grid = {"learning_rate": [0.001, 0.01, 0.1], "n_estimators": [500], "max_depth": [1, 2]}
+param_grid = {"learning_rate": [0.01, 0.1, 0.15], "n_estimators": [150], "max_depth": [1, 2]}
 # n_estimators is number of trees
 # learning rate typically 0.01 and 0.001
 # number of splits in each tree (1 works well usually) 225
@@ -42,7 +42,7 @@ param_grid = {"learning_rate": [0.001, 0.01, 0.1], "n_estimators": [500], "max_d
 bestmodel = grid_search.GridSearchCV(gbc, param_grid, cv = 5)
 
 size = len(X)
-ind = random.sample(range(size), size/5)
+ind = random.sample(range(size), size/10)
 sampleX = [X[x] for x in ind]
 sampleY = [Y[x] for x in ind]
 

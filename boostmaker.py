@@ -11,23 +11,23 @@ import csv
 import random
 import pickle
 
-print("trainingword.csv is opening")
+print("trainingpowerNB.csv is opening")
 
-with open("trainingword.csv", 'rU') as f:  #opens PW file
-	reader = csv.reader(f)
-	matrix1 = list(list(rec) for rec in csv.reader(f, delimiter=','))
-
-print("trainingwordpower.csv is opening")
-
-with open("trainingwordpower.csv", 'rU') as f:  #opens PW file
+with open("trainingpowerNB.csv", 'rU') as f:  #opens PW file
 	reader = csv.reader(f)
 	matrix = list(list(rec) for rec in csv.reader(f, delimiter=','))
 
-print("trainingpower.csv is opening")
+# print("trainingwordpower.csv is opening")
 
-with open("trainingpower.csv", 'rU') as f:  #opens PW file
-	reader = csv.reader(f)
-	matrix2 = list(list(rec) for rec in csv.reader(f, delimiter=','))
+# with open("trainingwordpower.csv", 'rU') as f:  #opens PW file
+# 	reader = csv.reader(f)
+# 	matrix1 = list(list(rec) for rec in csv.reader(f, delimiter=','))
+
+# print("trainingpower.csv is opening")
+
+# with open("trainingpower.csv", 'rU') as f:  #opens PW file
+# 	reader = csv.reader(f)
+# 	matrix2 = list(list(rec) for rec in csv.reader(f, delimiter=','))
 
 print("Splitting labels and predictors: wordpower")
 
@@ -46,33 +46,33 @@ for row in matrix:
 
 print("Splitting labels and predictors: word")
 
-file_names1 =[]
-X1 = [] # X = matrix of train
-Y1 = [] # Y = class Values
+# file_names1 =[]
+# X1 = [] # X = matrix of train
+# Y1 = [] # Y = class Values
 
-z = 0
-for row in matrix1:
-	if z == 0:
-		z = 1
-		continue
-	X1 += [row[:-2]]
-	Y1 += [row[-1]]
-	file_names1 += [row[-2]]
+# z = 0
+# for row in matrix1:
+# 	if z == 0:
+# 		z = 1
+# 		continue
+# 	X1 += [row[:-2]]
+# 	Y1 += [row[-1]]
+# 	file_names1 += [row[-2]]
 
-print("Splitting labels and predictors: power")
+# print("Splitting labels and predictors: power")
 
-file_names2 =[]
-X2 = [] # X = matrix of train
-Y2 = [] # Y = class Values
+# file_names2 =[]
+# X2 = [] # X = matrix of train
+# Y2 = [] # Y = class Values
 
-z = 0
-for row in matrix2:
-	if z == 0:
-		z = 1
-		continue
-	X2 += [row[:-2]]
-	Y2 += [row[-1]]
-	file_names2 += [row[-2]]
+# z = 0
+# for row in matrix2:
+# 	if z == 0:
+# 		z = 1
+# 		continue
+# 	X2 += [row[:-2]]
+# 	Y2 += [row[-1]]
+# 	file_names2 += [row[-2]]
 
 print("Changing strings into numbers: wordpower")
 
@@ -83,25 +83,25 @@ for row in X:
 	z2 += 1
 	print(z2)
 
-print("Changing strings into numbers: word")
+# print("Changing strings into numbers: word")
 
-Y1 = map(int, Y)
-z2 = 0
-for row in X:
-	X1[z2] = map(float, row)
-	z2 += 1
-	print(z2)
+# Y1 = map(int, Y)
+# z2 = 0
+# for row in X:
+# 	X1[z2] = map(float, row)
+# 	z2 += 1
+# 	print(z2)
 
-print("Changing strings into numbers: power")
+# print("Changing strings into numbers: power")
 
-Y2 = map(int, Y)
-z2 = 0
-for row in X:
-	X2[z2] = map(float, row)
-	z2 += 1
-	print(z2)
+# Y2 = map(int, Y)
+# z2 = 0
+# for row in X:
+# 	X2[z2] = map(float, row)
+# 	z2 += 1
+# 	print(z2)
 
-gbc = GradientBoostingClassifier(verbose = 1, learning_rate=0.01, n_estimators=500, max_depth=2)
+gbc = GradientBoostingClassifier(verbose = 1, learning_rate=0.1, n_estimators=500, max_depth=2)
 #clf = svm.SVC(kernel = 'rbf', decision_function_shape='ovo', C = INSERT_HERE, gamma = INSERT_HERE) 
 
 print("Training wordpowermodel")
@@ -110,25 +110,25 @@ ok = gbc.fit(X, Y)
 
 print("Writing wordpowermodel")
 
-with open("boostwordpowermodel", "wb") as f:
+with open("boostpowerNBmodel", "wb") as f:
 	pickle.dump(ok, f)
 
-print("Training wordmodel")
+# print("Training wordmodel")
 
-ok = gbc.fit(X1, Y1)
+# ok = gbc.fit(X1, Y1)
 
-print("Writing wordmodel")
+# print("Writing wordmodel")
 
-with open("boostwordmodel", "wb") as f:
-	pickle.dump(ok, f)
+# with open("boostwordmodel", "wb") as f:
+# 	pickle.dump(ok, f)
 
-print("Training powermodel")
+# print("Training powermodel")
 
-ok = gbc.fit(X2, Y2)
+# ok = gbc.fit(X2, Y2)
 
-print("Writing powermodel")
+# print("Writing powermodel")
 
-with open("boostpowermodel", "wb") as f:
-	pickle.dump(ok, f)
+# with open("boostpowermodel", "wb") as f:
+# 	pickle.dump(ok, f)
 
 print("Script complete.")

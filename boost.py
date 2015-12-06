@@ -34,7 +34,7 @@ for row in X:
 
 print("Doing CV")
 gbc = GradientBoostingClassifier(verbose = 1)
-param_grid = {"learning_rate": [0.05, 0.075, 0.1, 0.125, 0.175], "n_estimators": [500], "max_depth": [1]}
+param_grid = {"learning_rate": [0.2, 0.25, 0.3, 0.325, 0.35, 0.4], "n_estimators": [500], "max_depth": [3]}
 # n_estimators is number of trees
 # learning rate typically 0.01 and 0.001
 # number of splits in each tree (1 works well usually) 225

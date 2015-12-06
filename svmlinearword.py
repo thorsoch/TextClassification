@@ -48,13 +48,27 @@ for row in X:
 print("Setting up logistics for CV")
 
 param_grid = [
-  {'C': [150, 200, 250, 300], 'kernel': ['linear']}
+  {'C': [350, 400, 450], 'kernel': ['linear']}
   # ,
   # {'C': list(np.logspace(-1, 1, 5)), 'gamma': list(np.logspace(-1, 1, 5)), 'kernel': ['rbf']}
  ]
 
-size = len(X)
-ind = random.sample(range(size), size/2)
+print("Creating Stratified Sample")
+
+samp_prop = 0.1
+n = len(X) * samp_prop
+
+child_n = round(n * 7164/22308)
+history_n = round(n * 5352/22308)
+religion_n = round(n * 2361/22308)
+science_n = round(n * 7431/22308)
+
+child_ind = random.sample(range(7164), int(child_n))
+history_ind = random.sample(range(7164, 12516), int(history_n))
+religion_ind = random.sample(range(12516, 14877), int(religion_n))
+science_ind = random.sample(range(14877, 22308), int(science_n))
+
+ind = child_ind + history_ind + religion_ind + science_ind
 sampleX = [X[x] for x in ind]
 sampleY = [Y[x] for x in ind]
 

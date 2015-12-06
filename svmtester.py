@@ -10,9 +10,9 @@ import numpy as np
 import pickle
 import re
 
-print("practiceword.csv is opening")
+print("testwordNB.csv is opening")
 
-with open("practiceword.csv", 'rU') as f:  #opens PW file
+with open("testwordNB.csv", 'rU') as f:  #opens PW file
 	reader = csv.reader(f)
 	testmatrix = list(list(rec) for rec in csv.reader(f, delimiter=','))
 
@@ -60,9 +60,9 @@ x = map(list, final)
 
 x = [["id", "category"]] + x
 
-print("Writing out practicesvmpred_radial_15_15.csv")
+print("Writing out testsvmpred_radial_15_15.csv")
 
-with open("practicesvmpred_radial_15_15.csv", "wb") as f:
+with open("testsvmpred_radial_15_15.csv", "wb") as f:
 	writer = csv.writer(f)
 	writer.writerows(x)
 	

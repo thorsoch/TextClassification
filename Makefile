@@ -68,7 +68,8 @@ boostmakerwordpower:
 	ipython boostmakerwordpower.py
 boosttester:
 	ipython boosttester.py
-
+svmmakerradial:
+	ipython svmmakerradial.py
 
 
 

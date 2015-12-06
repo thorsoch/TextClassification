@@ -70,6 +70,14 @@ boosttester:
 	ipython boosttester.py
 svmmakerradial:
 	ipython svmmakerradial.py
+svmmodelradial2CV:
+	ipython svmradial2.py
+svmmodelradial3CV:
+	ipython svmradial3.py
+svmmodelradial4CV:
+	ipython svmradial4.py
+svmmodelradial5CV:
+	ipython svmradial5.py	
 
 
 

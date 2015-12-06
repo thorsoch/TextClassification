@@ -90,7 +90,7 @@ print("Cross Validation complete.")
 
 print("Writing out object")
 
-with open("svm_radial_wordpower_CV_4", "wb") as f:
+with open("svm_radial_wordpower_CV_0", "wb") as f:
 	pickle.dump(ok, f)
 
 print("Best Score is: ")

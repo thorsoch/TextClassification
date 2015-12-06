@@ -78,6 +78,8 @@ svmmodelradial4CV:
 	ipython svmradial4.py
 svmmodelradial5CV:
 	ipython svmradial5.py	
+svmmodelradial6CV:
+	ipython svmradial6.py
 svmmodelradialword2CV:
 	ipython svmradialword2.py
 

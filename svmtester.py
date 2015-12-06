@@ -16,7 +16,7 @@ with open("testwordNB.csv", 'rU') as f:  #opens PW file
 	reader = csv.reader(f)
 	testmatrix = list(list(rec) for rec in csv.reader(f, delimiter=','))
 
-with open("goodSVM_radial_15_15", "rb") as f: #"goodSVM"
+with open("goodSVM_radial_7_25", "rb") as f: #"goodSVM"
 	goodmodel = pickle.load(f)
 
 print("Splitting labels and predictors")
@@ -60,9 +60,9 @@ x = map(list, final)
 
 x = [["id", "category"]] + x
 
-print("Writing out testsvmpred_radial_15_15.csv")
+print("Writing out testsvmpred_radial_7_25.csv")
 
-with open("testsvmpred_radial_15_15.csv", "wb") as f:
+with open("testsvmpred_radial_7_25.csv", "wb") as f:
 	writer = csv.writer(f)
 	writer.writerows(x)
 	

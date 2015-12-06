@@ -51,7 +51,7 @@ for row in X:
 print("Setting up logistics for CV")
 
 param_grid = [
-  {'C': [15, 20, 30], 'gamma': [5, 10, 15], 'kernel': ['rbf']}
+  {'C': [10, 12.5], 'gamma': [17.5, 20], 'kernel': ['rbf']}
  ]
 
 print("Creating Stratified Sample")

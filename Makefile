@@ -40,6 +40,8 @@ filteredmatrixpower:
 	ipython filteredpowermatrix.py
 svmmaker:
 	ipython svmmaker.py
+svmmaker2:
+	ipython svmmaker2.py
 svmtester:
 	ipython svmtester.py
 trainingwordfeatures:

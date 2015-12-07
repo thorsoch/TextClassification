@@ -11,9 +11,9 @@ import pickle
 
 # Open up the training set.
 
-print("trainingpowerNB.csv is opening")
+print("trainingwordpowerNB.csv is opening")
 
-with open("trainingpowerNB.csv", 'rU') as f:  #opens PW file
+with open("trainingwordpowerNB.csv", 'rU') as f:  #opens PW file
 	reader = csv.reader(f)
 	matrix = list(list(rec) for rec in csv.reader(f, delimiter=','))
 
@@ -39,17 +39,17 @@ for row in X:
 	X[z2] = map(float, row)
 	z2 += 1
 
-print("Training c = 15, gamma = 8 Model")
+print("Training c = 75, gamma = 1 Model")
 
-clf = svm.SVC(kernel = 'rbf', C = 15, gamma = 8, verbose = True)
+clf = svm.SVC(kernel = 'rbf', C = 75, gamma = 1, verbose = True)
 
 ok = clf.fit(X, Y)
 
 # Change the model name.
 
-print("Writing c = 15, gamme = 8 Model")
+print("Writing c = 75, gamme = 1 Model")
 
-with open("goodSVM_radial_15_8_power", "wb") as f:
+with open("goodSVM_radial_75_1_wordpower", "wb") as f:
 	pickle.dump(ok, f)
 
 print("Script Complete")

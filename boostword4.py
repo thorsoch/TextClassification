@@ -1,13 +1,9 @@
 import sklearn
-from sklearn import svm
 from sklearn import grid_search, datasets
+from sklearn.ensemble import GradientBoostingClassifier
 import csv
 import random
-import numpy as np
 import pickle
-import sys
-
-csv.field_size_limit(sys.maxint)
 
 print("trainingword.csv is opening")
 
@@ -28,12 +24,6 @@ for row in matrix:
 	X += [row[:-2]]
 	Y += [row[-1]]
 
-# clf = svm.SVC(kernel = 'linear') #'rbf' has gamma parameter
-# Cost
-# clf = svm.SVC(kernel = 'rbf', decision_function_shape='ovo') 
-# Gamma and Cost
-# This is for radial (I think, not actually sure)
-
 print("Changing strings into numbers")
 
 Y = map(int, Y)
@@ -41,22 +31,17 @@ z2 = 0
 for row in X:
 	X[z2] = map(float, row)
 	z2 += 1
-	print(z2)
 
-# clf.predict(Matrix for test)
+print("Doing CV")
+gbc = GradientBoostingClassifier(verbose = 1)
+param_grid = {"learning_rate": [0.4, "n_estimators": [500], "max_depth": [3]}
+# n_estimators is number of trees
+# learning rate typically 0.01 and 0.001
+# number of splits in each tree (1 works well usually) 225
 
-# Change the stuff below to test various ways
-# parameters = {'kernel':('linear', 'rbf'), 'C':[1,10], 'gamma':[1,10]}
+bestmodel = grid_search.GridSearchCV(gbc, param_grid, cv = 5)
 
-print("Setting up logistics for CV")
-
-param_grid = [
-  {'C': [6.5], 'gamma': [27.5, 30], 'kernel': ['rbf']}
- ]
-
-print("Creating Stratified Sample")
-
-samp_prop = 0.1
+samp_prop = 0.05
 n = len(X) * samp_prop
 
 child_n = round(n * 7164/22308)
@@ -73,24 +58,15 @@ ind = child_ind + history_ind + religion_ind + science_ind
 sampleX = [X[x] for x in ind]
 sampleY = [Y[x] for x in ind]
 
+ok = bestmodel.fit(sampleX, sampleY)
 
-svr = svm.SVC()
-clf = grid_search.GridSearchCV(svr, param_grid, cv = 5, verbose = 4)
-
-#size = len(X)
-
-print("Beginning Cross Validation")
-#ind = random.sample(range(size), size/10)
-#sampleX = [X[x] for x in ind]
-#sampleY = [Y[x] for x in ind]
-
-ok = clf.fit(X, Y)
+# ok = bestmodel.fit(X, Y)
 
 print("Cross Validation complete.")
 
 # print("Writing out object")
 
-# with open("svm_radial_word_CV_0", "wb") as f:
+# with open("boost_word_CV_0", "wb") as f:
 # 	pickle.dump(ok, f)
 
 print("Best Score is: ")
@@ -103,3 +79,15 @@ print("Grid Scores are: ")
 print(ok.grid_scores_)
 
 print("Script complete.")
+
+# def cv_estimate(n_folds=3):
+#     cv = KFold(n=X_train.shape[0], n_folds=n_folds)
+#     cv_clf = ensemble.GradientBoostingClassifier(**params)
+#     val_scores = np.zeros((n_estimators,), dtype=np.float64)
+#     for train, test in cv:
+#         cv_clf.fit(X_train[train], y_train[train])
+#         val_scores += heldout_score(cv_clf, X_train[test], y_train[test])
+#     val_scores /= n_folds
+#     return val_scores
+
+# http://scikit-learn.org/stable/auto_examples/ensemble/plot_gradient_boosting_oob.html

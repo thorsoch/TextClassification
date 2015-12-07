@@ -51,7 +51,7 @@ for row in X:
 print("Setting up logistics for CV")
 
 param_grid = [
-  {'C': [6, 7, 8, 9], 'gamma': [25], 'kernel': ['rbf']}
+  {'C': [6.5], 'gamma': [35, 40], 'kernel': ['rbf']}
  ]
 
 print("Creating Stratified Sample")
@@ -88,10 +88,10 @@ ok = clf.fit(X, Y)
 
 print("Cross Validation complete.")
 
-print("Writing out object")
+# print("Writing out object")
 
-with open("svm_radial_word_CV_0", "wb") as f:
-	pickle.dump(ok, f)
+# with open("svm_radial_word_CV_0", "wb") as f:
+# 	pickle.dump(ok, f)
 
 print("Best Score is: ")
 print(ok.best_score_)

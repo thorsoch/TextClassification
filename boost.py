@@ -41,8 +41,20 @@ param_grid = {"learning_rate": [0.2, 0.25, 0.3, 0.325, 0.35, 0.4], "n_estimators
 
 bestmodel = grid_search.GridSearchCV(gbc, param_grid, cv = 5)
 
-size = len(X)
-ind = random.sample(range(size), size/10)
+samp_prop = 0.1
+n = len(X) * samp_prop
+
+child_n = round(n * 7164/22308)
+history_n = round(n * 5352/22308)
+religion_n = round(n * 2361/22308)
+science_n = round(n * 7431/22308)
+
+child_ind = random.sample(range(7164), int(child_n))
+history_ind = random.sample(range(7164, 12516), int(history_n))
+religion_ind = random.sample(range(12516, 14877), int(religion_n))
+science_ind = random.sample(range(14877, 22308), int(science_n))
+
+ind = child_ind + history_ind + religion_ind + science_ind
 sampleX = [X[x] for x in ind]
 sampleY = [Y[x] for x in ind]
 

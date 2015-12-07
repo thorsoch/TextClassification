@@ -54,7 +54,7 @@ def numonly(x):
 
 print("Cleaning up text file names.")
 
-predicted = list(map(int, list(predicted))
+predicted = list(map(int, list(predicted)))
 
 confusion = [[0,0,0,0]]*4
 

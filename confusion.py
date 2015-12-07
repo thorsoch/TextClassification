@@ -12,7 +12,7 @@ import re
 
 print("allfeaturestest.csv is opening")
 
-a = ["trainingword.csv", "trainingwordpower.csv", "trainingpower.csv"]
+a = ["trainingword.csv", "trainingwordpowerNB.csv", "trainingpowerNB.csv"]
 
 with open(a[2], 'rU') as f:  #opens PW file
 	reader = csv.reader(f)

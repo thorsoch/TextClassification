@@ -72,8 +72,8 @@ Herror = 1 - (confusion[1][1])/((confusion[0][1] + confusion[1][1] + confusion[2
 Rerror = 1 - (confusion[2][2])/((confusion[0][2] + confusion[1][2] + confusion[2][2] + confusion[3][1])*1.0)
 Serror = 1 - (confusion[3][3])/((confusion[0][3] + confusion[1][3] + confusion[2][3] + confusion[3][3])*1.0)
 
-print("Total error: " + Terror + " Child error: " + Cerror + " History error: " + Herror + " Religion error: "
-	+ Rerror + " Science error: " + Serror)
+print("Total error: " + str(Terror) + " Child error: " + str(Cerror) + " History error: " + str(Herror) + " Religion error: "
+	+ str(Rerror) + " Science error: " + str(Serror))
 
 print("Writing out testsvmpred_linear50.csv")
 

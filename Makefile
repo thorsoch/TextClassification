@@ -102,6 +102,21 @@ boostmodelword3CV:
 	ipython boostword3.py
 boostmodelword4CV:
 	ipython boostword4.py
-
+svmmodelradialword9CV:
+	ipython svmradialword9.py
+svmmodelradialword10CV:
+	ipython svmradialword10.py
+svmmodelradialword11CV:
+	ipython svmradialword11.py
+svmmodelradialword12CV:
+	ipython svmradialword12.py
+svmmodelradialword13CV:
+	ipython svmradialword13.py
+svmmodelradialword14CV:
+	ipython svmradialword14.py
+svmmodelradialword15CV:
+	ipython svmradialword15.py
+svmmodelradialword16CV:
+	ipython svmradialword16.py
 
 

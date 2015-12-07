@@ -118,5 +118,8 @@ svmmodelradialword15CV:
 	ipython svmradialword15.py
 svmmodelradialword16CV:
 	ipython svmradialword16.py
-
+svmmakerradial3:
+	ipython svmmakerradial3.py
+svmmakerradial4:
+	ipython svmmakerradial4.py
 

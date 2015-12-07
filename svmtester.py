@@ -10,13 +10,13 @@ import numpy as np
 import pickle
 import re
 
-print("testwordpowerNB.csv is opening")
+print("testwordNB.csv is opening")
 
-with open("testwordpowerNB.csv", 'rU') as f:  #opens PW file
+with open("testwordNB.csv", 'rU') as f:  #opens PW file
 	reader = csv.reader(f)
 	testmatrix = list(list(rec) for rec in csv.reader(f, delimiter=','))
 
-with open("goodSVM_linear250", "rb") as f: #"goodSVM"
+with open("goodSVM_radial_8_60_word", "rb") as f: #"goodSVM"
 	goodmodel = pickle.load(f)
 
 print("Splitting labels and predictors")
@@ -60,9 +60,9 @@ x = map(list, final)
 
 x = [["id", "category"]] + x
 
-print("Writing out testsvmpred_linear250.csv")
+print("Writing out testsvmpred_radial_8_60.csv")
 
-with open("testsvmpred_linear250.csv", "wb") as f:
+with open("testsvmpred_radial_8_60.csv", "wb") as f:
 	writer = csv.writer(f)
 	writer.writerows(x)
 	

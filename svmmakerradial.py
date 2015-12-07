@@ -49,7 +49,7 @@ ok = clf.fit(X, Y)
 
 print("Writing c = 7.7, gamme = 80 Model")
 
-with open("goodSVM_radial_7.7_80_word", "wb") as f:
+with open("goodSVM_radial_7_7_80_word", "wb") as f:
 	pickle.dump(ok, f)
 
 print("Script Complete")

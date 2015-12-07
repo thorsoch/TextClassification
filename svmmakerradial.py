@@ -39,17 +39,17 @@ for row in X:
 	X[z2] = map(float, row)
 	z2 += 1
 
-print("Training c = 7.7, gamma = 80 Model")
+print("Training c = 7.4, gamma = 81.667 Model")
 
-clf = svm.SVC(kernel = 'rbf', C = 7.7, gamma = 80, verbose = True)
+clf = svm.SVC(kernel = 'rbf', C = 7.4, gamma = 81.667, verbose = True)
 
 ok = clf.fit(X, Y)
 
 # Change the model name.
 
-print("Writing c = 7.7, gamme = 80 Model")
+print("Writing c = 7.4, gamme = 81.667 Model")
 
-with open("goodSVM_radial_7_7_80_word", "wb") as f:
+with open("goodSVM_radial_7_4_81667_word", "wb") as f:
 	pickle.dump(ok, f)
 
 print("Script Complete")

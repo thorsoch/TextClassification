@@ -18,7 +18,7 @@ with open(a[1], 'rU') as f:  #opens PW file
 	reader = csv.reader(f)
 	testmatrix = list(list(rec) for rec in csv.reader(f, delimiter=','))
 
-with open("goodSVM_radial_75_1_power", "rb") as f: #"goodSVM"
+with open("goodSVM_radial_75_1_wordpower", "rb") as f: #"goodSVM"
 	goodmodel = pickle.load(f)
 
 print("Splitting labels and predictors")

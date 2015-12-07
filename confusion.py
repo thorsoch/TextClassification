@@ -37,6 +37,8 @@ for row in testmatrix:
 	classlabel += [row[-1]]
 	z2 += 1
 
+classlabel = map(int, classlabel)
+
 print("Changing strings into numbers")
 z2 = 0
 for row in X:
@@ -52,7 +54,7 @@ def numonly(x):
 
 print("Cleaning up text file names.")
 
-predicted = list(predicted)
+predicted = list(map(int, list(predicted))
 
 confusion = [[0,0,0,0]]*4
 

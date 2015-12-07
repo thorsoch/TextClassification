@@ -14,11 +14,11 @@ print("allfeaturestest.csv is opening")
 
 a = ["trainingword.csv", "trainingwordpower.csv", "trainingpower.csv"]
 
-with open(a[0], 'rU') as f:  #opens PW file
+with open(a[2], 'rU') as f:  #opens PW file
 	reader = csv.reader(f)
 	testmatrix = list(list(rec) for rec in csv.reader(f, delimiter=','))
 
-with open("goodSVM_radial_7_25", "rb") as f: #"goodSVM"
+with open("goodSVM_radial_15_8_power", "rb") as f: #"goodSVM"
 	goodmodel = pickle.load(f)
 
 print("Splitting labels and predictors")
@@ -77,11 +77,11 @@ print("Total error: " + str(Terror) + " Child error: " + str(Cerror) + " History
 
 print("Writing out testsvmpred_linear50.csv")
 
-with open("confusion.csv", "wb") as f:
+with open("confusionradialpower.csv", "wb") as f:
 	writer = csv.writer(f)
 	writer.writerows(confusion)
 
-with open("roc.csv", "wb") as f:
+with open("rocradialpower.csv", "wb") as f:
 	writer = csv.writer(f)
 	writer.writerows([classlabel, predicted])
 	

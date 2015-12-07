@@ -60,9 +60,9 @@ x = map(list, final)
 
 x = [["id", "category"]] + x
 
-print("Writing out testsvmpred_radial_7_7_60.csv")
+print("Writing out testsvmpred_radial_7_7_80.csv")
 
-with open("testsvmpred_radial_7_7_60.csv", "wb") as f:
+with open("testsvmpred_radial_7_7_80.csv", "wb") as f:
 	writer = csv.writer(f)
 	writer.writerows(x)
 	

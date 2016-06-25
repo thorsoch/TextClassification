@@ -15,9 +15,10 @@ FOLDER_PATH: Path to folder containing the text files.
 CLASSNUM (optional): The class to which this set of input files belong. Must be an integer.
 """
 
-# TODO: file_path is an input!
 cmdargs = sys.argv
 FILE_PATH = cmdargs[1]
+freqBarU = 2508
+freqBarT = 130000
 if len(cmdargs) == 3:
 	CLASSNUM = int(cmdargs[2])
 else:
@@ -147,6 +148,16 @@ def makeCount(all_words, path, classnum):
 		i += 1
 	return [matrix, total]
 
+def makeCutCsv(counts, name, summ):
+	wordslen = len(cleanwords) + 1
+	indall = range(0, wordslen)
+	index = [i for (i, j) in zip(indall, summ) if j > freqBarU and j < freqBarT]
+	finalMatrix = [[cleanwords[i] for i in index], [counts[i] for i in index]]
+
+	with open(name, "wb") as f:
+		writer = csv.writer(f)
+		writer.writerows(finalMatrix)
+
 if __name__ == "__main__":
 
 	print("Making Words")
@@ -158,12 +169,14 @@ if __name__ == "__main__":
 	print("Removing nonsense words")
 
 	cleanwords = list(filter(removefunc, words))
+	with open("allwords", 'wb') as f:
+		pickle.dump(cleanwords, f)
 
 	print("cleanwords writing done")
 
 	matrix = makeCount(cleanwords, txt_path, CLASSNUM)
 
-	with open("words.csv", "wb") as f:
+	with open(FILE_PATH + "words.csv", "wb") as f:
 		writer = csv.writer(f)
 		writer.writerows(matrix)
 

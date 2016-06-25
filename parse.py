@@ -5,20 +5,31 @@ import re
 import csv
 import pickle
 from bisect import bisect_left
+import sys
+
+"""
+This file is used to parse text files to create a csv which will contain the counts of all words across all files.
+
+Call this file as "python parse.py FOLDER_PATH CLASSNUM"
+FOLDER_PATH: Path to folder containing the text files.
+CLASSNUM (optional): The class to which this set of input files belong. Must be an integer.
+"""
+
+# TODO: file_path is an input!
+cmdargs = sys.argv
+FILE_PATH = cmdargs[1]
+if len(cmdargs) == 3:
+	CLASSNUM = int(cmdargs[2])
+else:
+	CLASSNUM = 0
+if len(cmdargs) > 3 or len(cmdargs) < 2:
+	print("Error: Incorrect number of arguments.")
+	raise Exception
 
 # Prepare the path for all .txt files. 
 
 base_path = os.path.abspath(os.path.dirname(__file__))
-txt_path = os.path.join(base_path, "Training", "*", "*.txt")
-
-# Create category paths seperately, in case we need them. 
-
-child_path = os.path.join(base_path, "Training", "Child_0", "*.txt")
-history_path = os.path.join(base_path, "Training", "History_1", "*.txt")
-religion_path = os.path.join(base_path, "Training", "Religion_2", "*.txt")
-science_path = os.path.join(base_path, "Training", "Science_3", "*.txt")
-
-paths = [child_path, history_path, religion_path, science_path]
+txt_path = os.path.join(base_path, FILE_PATH, "*.txt")
 
 # Function that opens the file at PATH, 
 # parses out words, and returns them as
@@ -74,7 +85,6 @@ def makeWordList():
 			i = 0
 		i += 1
 		count += 1
-		print("Appending words from file: " + str(count))
 	mainwordlist += wordlist
 	return list(set(mainwordlist))
 
@@ -120,7 +130,7 @@ def makeMatrix(all_words):
 
 def makeCount(all_words, path, classnum):
 	all_words.sort()
-	matrix = [all_words + ["CLASS"]]
+	matrix = all_words + ["CLASS"]
 	rowLength = len(all_words)
 	i = 0
 	total = [0] * (rowLength + 1)
@@ -135,7 +145,6 @@ def makeCount(all_words, path, classnum):
 				row[pos] = d[key]
 		total = [x + y for x, y in zip(total, row)]
 		i += 1
-		print(path[-20:] + " on iteration " + str(i))
 	return [matrix, total]
 
 if __name__ == "__main__":
@@ -150,62 +159,12 @@ if __name__ == "__main__":
 
 	cleanwords = list(filter(removefunc, words))
 
-	print("Finished making cleanwords, writing out now")
+	print("cleanwords writing done")
 
-	with open("allwords", 'wb') as f:
-		pickle.dump(cleanwords, f)
-	#with open("allwords", 'rb') as f:
-		#cleanwords = pickle.load(f)
+	matrix = makeCount(cleanwords, txt_path, CLASSNUM)
 
-	print("cleanwords writing done. starting child")
-
-	#finalmatrix = makeMatrix(cleanwords)
-	#print("matrix done")
-	matrix = makeCount(cleanwords, child_path, 0)
-
-	print("writing out child")
-
-	with open("child.csv", "wb") as f:
+	with open("words.csv", "wb") as f:
 		writer = csv.writer(f)
 		writer.writerows(matrix)
-
-	print("child writing done. starting history")
-
-	matrix = makeCount(cleanwords, history_path, 1)
-
-	print("writing out history")
-
-	with open("history.csv", "wb") as f:
-		writer = csv.writer(f)
-		writer.writerows(matrix)
-
-	print("history writing done. starting religion")
-
-	matrix = makeCount(cleanwords, religion_path, 2)
-
-	print("writing out religion")
-
-	with open("religion.csv", "wb") as f:
-		writer = csv.writer(f)
-		writer.writerows(matrix)
-
-	print("religion writing done. starting science")
-
-	matrix = makeCount(cleanwords, science_path, 3)
-
-	print("writing out science")
-
-	with open("science.csv", "wb") as f:
-		writer = csv.writer(f)
-		writer.writerows(matrix)
-
-	print("science writing done.")
-
-	print("Done writing out: cleanword & 4 word counts.")
 
 	print("Script complete.")
-
-#with open("allwords", 'wb') as f:
-	#pickle.dump(my_list, f)
-#with open("allwords", 'rb') as f:
-#    my_list = pickle.load(f)

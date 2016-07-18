@@ -8,29 +8,28 @@ from bisect import bisect_left
 import sys
 
 """
-This file is used to parse text files to create a csv which will contain the counts of all words across all files.
+This file is used to parse text files to create csvs which will contain the counts of all words across all files per forlder.
 
-Call this file as "python parse.py FOLDER_PATH CLASSNUM"
-FOLDER_PATH: Path to folder containing the text files.
-CLASSNUM (optional): The class to which this set of input files belong. Must be an integer.
+Call this file as "python parse.py FOLDER_PATHS..."
+FOLDER_PATHS: Paths to folders containing the text files. The first folder in the list will be given class id 0, the next one will be 1 and so on.
 """
 
 cmdargs = sys.argv
-FILE_PATH = cmdargs[1]
-freqBarU = 2508
-freqBarT = 130000
-if len(cmdargs) == 3:
-	CLASSNUM = int(cmdargs[2])
-else:
-	CLASSNUM = 0
-if len(cmdargs) > 3 or len(cmdargs) < 2:
+FILE_PATHS = cmdargs[1:]
+if len(cmdargs) < 2:
 	print("Error: Incorrect number of arguments.")
 	raise Exception
 
 # Prepare the path for all .txt files. 
 
 base_path = os.path.abspath(os.path.dirname(__file__))
-txt_path = os.path.join(base_path, FILE_PATH, "*.txt")
+
+txt_paths =[]
+for path in FILE_PATHS:
+	txt_path = [os.path.join(base_path, path, "*.txt")]
+	txt_paths += txt_path
+
+print(txt_paths)
 
 # Function that opens the file at PATH, 
 # parses out words, and returns them as
@@ -76,17 +75,18 @@ def makeWordList():
 	mainwordlist = []
 	count = 0
 	i = 0
-	for file in glob.glob(txt_path):
-		new_wordlist = parse(file)
-		wordlist += new_wordlist
-		wordlist = list(set(wordlist))
-		if i > 100:
-			mainwordlist += wordlist
-			wordlist = []
-			i = 0
-		i += 1
-		count += 1
-	mainwordlist += wordlist
+	for txt_path in txt_paths:
+		for file in glob.glob(txt_path):
+			new_wordlist = parse(file)
+			wordlist += new_wordlist
+			wordlist = list(set(wordlist))
+			if i > 100:
+				mainwordlist += wordlist
+				wordlist = []
+				i = 0
+			i += 1
+			count += 1
+		mainwordlist += wordlist
 	return list(set(mainwordlist))
 
 def binary_search(a, x, lo=0, hi=None):   # can't use a to specify default for hi
@@ -110,7 +110,7 @@ def makeMatrix(all_words):
 	rowLength = len(all_words)
 	i = 0
 	j = 0
-	for path in paths:
+	for path in txt_paths:
 		for file in glob.glob(path):
 			row = [0] * (rowLength + 2)
 			new_wordlist = parse(file)
@@ -148,16 +148,6 @@ def makeCount(all_words, path, classnum):
 		i += 1
 	return [matrix, total]
 
-def makeCutCsv(counts, name, summ):
-	wordslen = len(cleanwords) + 1
-	indall = range(0, wordslen)
-	index = [i for (i, j) in zip(indall, summ) if j > freqBarU and j < freqBarT]
-	finalMatrix = [[cleanwords[i] for i in index], [counts[i] for i in index]]
-
-	with open(name, "wb") as f:
-		writer = csv.writer(f)
-		writer.writerows(finalMatrix)
-
 if __name__ == "__main__":
 
 	print("Making Words")
@@ -174,10 +164,12 @@ if __name__ == "__main__":
 
 	print("cleanwords writing done")
 
-	matrix = makeCount(cleanwords, txt_path, CLASSNUM)
-
-	with open(FILE_PATH + "words.csv", "wb") as f:
-		writer = csv.writer(f)
-		writer.writerows(matrix)
+	j = 0
+	for path in txt_paths:
+		matrix = makeCount(cleanwords, path, j)
+		with open(FILE_PATHS[j] + "words.csv", "wb") as f:
+			writer = csv.writer(f)
+			writer.writerows(matrix)
+		j += 1
 
 	print("Script complete.")

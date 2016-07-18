@@ -3,58 +3,17 @@ import sys
 import pickle
 csv.field_size_limit(sys.maxsize)
 
-print("Opening child")
+"""
+This file is used to parse text files to create a csv which will contain the counts of all words across all files.
 
-with open("child.csv", 'rU') as f:  #opens PW file
-	reader = csv.reader(f)
-	dataChild = list(list(rec) for rec in csv.reader(f, delimiter=',')) #reads csv into a list of lists
+Call this file as "python importcsv.py MIN MAX FILES..."
 
-print("Opening history")
+MIN: The minimum frequency a word requires to be contained.
+MAX: The maximum frequency a word can have without being omitted.
+FILES...: The csv files made by parse.py you would like to include.
+"""
 
-with open("history.csv", 'rU') as f:  #opens PW file
-	reader = csv.reader(f)
-	dataHistory = list(list(rec) for rec in csv.reader(f, delimiter=',')) 
-
-print("Opening religion")
-
-with open("religion.csv", 'rU') as f:  #opens PW file
-	reader = csv.reader(f)
-	dataReligion = list(list(rec) for rec in csv.reader(f, delimiter=',')) 
-
-print("Opening science")
-
-with open("science.csv", 'rU') as f:  #opens PW file
-	reader = csv.reader(f)
-	dataScience = list(list(rec) for rec in csv.reader(f, delimiter=',')) 
-
-print("Starting sums")
-print("Starting first sum")
-summ = [int(a)+int(b) for (a, b) in zip(dataChild[1], dataHistory[1])]
-print("Starting second sum")
-summ = [int(a)+int(b) for (a, b) in zip(summ, dataReligion[1])]
-print("Starting third sum")
-summ = [int(a)+int(b) for (a, b) in zip(summ, dataScience[1])]
-
-print("Opening allwords")
-with open("allwords", 'rb') as f:
-	cleanwords = pickle.load(f)
-
-print("setting up logistics")
-cleanwords.sort()
-
-freqBarU = 2508
-freqBarT = 130000
-
-print("Making ints for child")
-childCounts = [int(a) for a in dataChild[1]]
-print("Making ints for history")
-historyCounts = [int(a) for a in dataHistory[1]]
-print("Making ints for religion")
-religionCounts = [int(a) for a in dataReligion[1]]
-print("Making ints for science")
-scienceCounts = [int(a) for a in dataScience[1]]
-
-def makeCutCsv(counts, name, summ):
+def makeCutCsv(counts, name, summ, freqBarU = 0, freqBarT = 1000000):
 	wordslen = len(cleanwords) + 1
 	indall = range(0, wordslen)
 	index = [i for (i, j) in zip(indall, summ) if j > freqBarU and j < freqBarT]
@@ -64,17 +23,42 @@ def makeCutCsv(counts, name, summ):
 		writer = csv.writer(f)
 		writer.writerows(finalMatrix)
 
-print("Making child cuts")
-makeCutCsv(childCounts, "childCut.csv", summ)
-print("Making history cuts")
-makeCutCsv(historyCounts, "historyCut.csv", summ)
-print("Making religion cuts")
-makeCutCsv(religionCounts, "religionCut.csv", summ)
-print("Making science cuts")
-makeCutCsv(scienceCounts, "scienceCut.csv", summ)
-print("Making totals cuts")
-makeCutCsv(summ, "totals.csv", summ)
+if __name__ == "__main__":
+	cmdargs = sys.argv
+	MIN = cmdargs[1] # The minimum frequency we count.
+	MAX = cmdargs[2]
+	files = cmdargs[3:]
+	if len(cmdargs) < 3:
+		print("Error: Incorrect number of arguments.")
+		raise Exception
 
-print("Script complete: 4 cut csvs and totals cut made.")
+	all_data = {}
+	file_names = []
+	first = True
+	for fi in files:
+		with open(fi, 'rU') as f:
+			reader = csv.reader(f)
+			data = list(list(rec) for rec in csv.reader(f, delimiter=',')) #reads csv into a list of lists
+			all_data[fi] = [int(a) for a in data[1]]
+			file_names += [fi]
+			if first:
+				summ = data[1]
+			else:
+				summ = [int(a) + int(b) for (a, b) in zip(summ, data[1])]
+		first = False
 
+	print("Opening allwords")
+	with open("allwords", 'rb') as f:
+		cleanwords = pickle.load(f)
 
+	print(cleanwords)
+
+	print("setting up logistics")
+	cleanwords.sort()
+
+	print(all_data)
+
+	for fi in file_names:
+		makeCutCsv(all_data[fi], fi + "2", summ, MIN, MAX)
+
+	print("Script complete")
